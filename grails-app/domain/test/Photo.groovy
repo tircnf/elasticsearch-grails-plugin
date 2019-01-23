@@ -9,7 +9,7 @@ class Photo extends AbstractImage {
     }
 
     static searchable = {
-        url index: "not_analyzed"
+        url index: true
     }
 
 

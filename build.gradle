@@ -10,6 +10,7 @@ buildscript {
     repositories {
         mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
+        maven { url 'https://artifacts.elastic.co/maven' }
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -25,7 +26,7 @@ plugins {
     id "de.undercouch.download" version "3.2.0"
 }
 
-version "2.5.0.BUILD-SNAPSHOT"
+version '2.5.0.BUILD-SNAPSHOT-1'
 group "org.grails.plugins"
 
 apply plugin: 'eclipse'
@@ -41,8 +42,8 @@ ext {
     elasticsearchAttachmentsVersion = project.elasticsearchAttachmentsVersion
 }
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenLocal()
@@ -92,7 +93,10 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
 
     compile "org.elasticsearch:elasticsearch:${elasticsearchVersion}"
-    compile group: 'org.elasticsearch.client', name: 'transport', version: elasticsearchVersion
+    compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: elasticsearchVersion
+    compile group: 'org.locationtech.spatial4j', name: 'spatial4j', version: '0.6'
+    compile group: 'org.codehaus.gpars', name: 'gpars', version: '1.2.1'
+
 
     console "org.grails:grails-console"
 
@@ -110,27 +114,6 @@ dependencies {
 
     //compile "org.elasticsearch.plugin:mapper-attachments:${elasticsearchAttachmentsVersion}"
     compile fileTree(dir: "libs/elasticsearch", include: '*.jar')
-}
-
-task downloadAttachmentsPlugin(type: Download) {
-    src "https://artifacts.elastic.co/downloads/elasticsearch-plugins/mapper-attachments/mapper-attachments-${elasticsearchVersion}.zip"
-    dest "libs/mapper-attachments-${elasticsearchVersion}.zip"
-    overwrite true
-    onlyIfNewer true
-}
-
-task downloadAndUnzipAttachmentsPlugin(dependsOn: downloadAttachmentsPlugin) {
-    doLast {
-        copy {
-            from zipTree(downloadAttachmentsPlugin.dest)
-            into 'libs/'
-        }
-        delete 'libs/elasticsearch/commons-codec-1.10.jar'
-    }
-}
-
-compileJava{
-    dependsOn downloadAndUnzipAttachmentsPlugin
 }
 
 task cleanLibsDir(type: Delete) {
@@ -170,7 +153,7 @@ grailsPublish {
     license {
         name = 'Apache-2.0'
     }
-    title = "Elasticserach"
+    title = "Elasticsearch"
     //rep = "grails-plugins"
     desc = "An Elasticsearch plugin for Grails"
     developers = [

@@ -111,16 +111,18 @@ class ElasticSearchMappingFactory {
 
                     if(idType == 'text') idType = 'keyword'
 
-                    props.put('id', defaultDescriptor(idType, 'not_analyzed', true))
-                    props.put('class', defaultDescriptor('keyword', 'no', true))
-                    props.put('ref', defaultDescriptor('keyword', 'no', true))
+                    props.put('id', defaultDescriptor(idType, 'true', true))
+                    props.put('class', defaultDescriptor('keyword', 'false', true))
+                    props.put('ref', defaultDescriptor('keyword', 'false', true))
                 }
             }
             propOptions.type = propType
             // See http://www.elasticsearch.com/docs/elasticsearch/mapping/all_field/
             if (!(propType in ['object', 'attachment']) && scm.isAll()) {
                 // does it make sense to include objects into _all?
-                propOptions.include_in_all = !scpm.shouldExcludeFromAll()
+                // is deprecated https://www.elastic.co/guide/en/elasticsearch/reference/6.4/mapping-all-field.html
+                // if wanted then should be implemented with https://www.elastic.co/guide/en/elasticsearch/reference/6.4/mapping-all-field.html#enabling-all-field
+                //propOptions.include_in_all = !scpm.shouldExcludeFromAll()
             }
             // todo only enable this through configuration...
             if (propType == 'text' && scpm.isDynamic()) {
@@ -258,6 +260,6 @@ class ElasticSearchMappingFactory {
     }
 
     private static Map<String, Object> defaultDescriptor(String type, String index, boolean excludeFromAll) {
-        [type: type, index: index, include_in_all: !excludeFromAll] as Map<String, Object>
+        [type: type, index: index] as Map<String, Object>
     }
 }

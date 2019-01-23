@@ -107,7 +107,11 @@ environments:
         elasticSearch:
             client:
                 mode: local
+                hosts:
+                  - {host: 127.0.0.1, port: 9200}
                 transport.sniff: false
+                username: zzb-elasticsearch
+                password: /+mh&K@2sF('X7J_
             datastoreImpl: hibernateDatastore
             index:
                 store.type: simplefs
