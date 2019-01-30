@@ -33,16 +33,12 @@ import org.springframework.beans.factory.FactoryBean
 
 class ClientNodeFactoryBean implements FactoryBean {
 
-    static final SUPPORTED_MODES = ['local', 'transport', 'dataNode']
-
     private static final Logger LOG = LoggerFactory.getLogger(this)
 
     ElasticSearchContextHolder elasticSearchContextHolder
-    def node
     RestHighLevelClient restHighLevelClient
 
     Object getObject() {
-        String clientMode = elasticSearchContextHolder.config.client.mode ?: 'transport'
 
         int timeout = 2
 
@@ -73,7 +69,7 @@ class ClientNodeFactoryBean implements FactoryBean {
             })
         }
 
-        println 'Initializing Elasticsearch RestClient'
+        LOG.debug 'Initializing Elasticsearch RestClient'
         builder.setMaxRetryTimeoutMillis(timeout * 1000)
         builder.setRequestConfigCallback(new RestClientBuilder.RequestConfigCallback() {
             @Override
@@ -84,16 +80,16 @@ class ClientNodeFactoryBean implements FactoryBean {
         })
 
         restHighLevelClient = new RestHighLevelClient(builder)
-        println 'Initialized Elasticsearch RestClient'
+        LOG.debug 'Initialized Elasticsearch RestClient'
 
         return restHighLevelClient
 
         /*
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider()
-        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("zzb-elasticsearch", "/+mh&K@2sF('X7J_"))
+        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(elasticSearchContextHolder.config.client.username, elasticSearchContextHolder.config.client.password))
         println "Initializing Elasticsearch RestClient"
         RestClientBuilder builder = RestClient
-                .builder(new HttpHost("5f39beb2b9e54a0aab18b39ac84d1d8f.eu-central-1.aws.cloud.es.io", 9243, "https"))
+                .builder(new HttpHost(elasticSearchContextHolder.config.client.host, 9243, "https"))
                 .setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
             @Override
             HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
