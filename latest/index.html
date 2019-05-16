@@ -425,7 +425,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Elasticsearch Plugin - Reference Documentation</h1>
 <div class="details">
 <span id="author" class="author">Puneet Behl</span><br>
-<span id="revnumber">version 2.4.1</span>
+<span id="revnumber">version 2.4.2</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -560,6 +560,26 @@ reference for its syntax and behaviour.</p>
 <h4 id="grails-3-x-version">1.2.1. Grails 3.x version</h4>
 <div class="ulist">
 <ul>
+<li>
+<p>May 10, 2018</p>
+<div class="ulist">
+<ul>
+<li>
+<p>2.4.1</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>search</code> method now returns <code>ElasticsearchResult</code> instead of <code>Map</code>.</p>
+</li>
+<li>
+<p>Added configuration <code>elasticSearch.plugin.mapperAttachment.enabled</code> to disable Mapper Attachment plugin.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>December 12, 2017</p>
 <div class="ulist">
@@ -1334,7 +1354,7 @@ If necessary a 4th level point release number will be used for successive change
 <p><em>Existing versions in</em> <strong>bold</strong></p>
 </div>
 <div class="paragraph">
-<p>Current version is <strong>2.4.1</strong> (for Grails 2.x the latest version is <strong>0.1.0</strong>)</p>
+<p>Current version is <strong>2.4.2</strong> (for Grails 2.x the latest version is <strong>0.1.0</strong>)</p>
 </div>
 </div>
 <div class="sect2">
@@ -2161,11 +2181,11 @@ ext['elasticsearch.version'] = elasticsearchVersion</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In order debug Elasticsearch plugin, add <code>logger("grails.plugins.elasticsearch", DEBUG, ['STDOUT'], false)</code> in `logback.groovy file as following:</p>
+<p>In order debug Elasticsearch plugin, add <code>logger("grails.plugins.elasticsearch", DEBUG, ['STDOUT'], false)</code> in <code>logback.groovy</code> file as following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>import grails.util.BuildSettings
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">import grails.util.BuildSettings
 import grails.util.Environment
 import org.springframework.boot.logging.logback.ColorConverter
 import org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter
@@ -2204,7 +2224,7 @@ if (Environment.isDevelopmentMode() &amp;&amp; targetDir != null) {
 }
 else {
     root(ERROR, ['STDOUT'])
-}</pre>
+}</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -3989,8 +4009,8 @@ class Department {
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.4.1<br>
-Last updated 2018-05-10 01:21:48 +00:00
+Version 2.4.2<br>
+Last updated 2019-05-16 11:19:48 +00:00
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
