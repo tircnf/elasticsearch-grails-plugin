@@ -20,6 +20,7 @@ import grails.plugins.elasticsearch.ElasticSearchAdminService
 import grails.plugins.elasticsearch.ElasticSearchContextHolder
 import grails.plugins.elasticsearch.util.ElasticSearchConfigAware
 import groovy.transform.CompileStatic
+import org.elasticsearch.ElasticsearchStatusException
 import org.elasticsearch.cluster.health.ClusterHealthStatus
 import org.elasticsearch.indices.InvalidIndexTemplateException
 import org.elasticsearch.transport.RemoteTransportException
@@ -148,6 +149,9 @@ class SearchableClassMappingConfigurator implements ElasticSearchConfigAware {
                     } catch (InvalidIndexTemplateException e) {
                         LOG.warn("Could not install mapping ${scm.indexName}/${scm.elasticTypeName} due to ${e.message}, migrations needed")
                         mappingConflicts << new MappingConflict(scm: scm, exception: e)
+                    } catch (ElasticsearchStatusException e) {
+                        LOG.warn("Could not install mapping ${scm.indexName}/${scm.elasticTypeName} due to ${e.message}, migrations needed")
+                        mappingConflicts << new MappingConflict(scm: scm, exception: e)
                     } catch (IOException e) {
                         LOG.warn("Could not install mapping ${scm.indexName}/${scm.elasticTypeName} due to ${e.message}, migrations needed")
                         mappingConflicts << new MappingConflict(scm: scm, exception: e)
@@ -157,10 +161,17 @@ class SearchableClassMappingConfigurator implements ElasticSearchConfigAware {
             //Create them only if they don't exist so it does not mess with other migrations
             String queryingIndex = queryingIndexFor(indexName)
             String indexingIndex = indexingIndexFor(indexName)
-            if (!es.aliasExists(queryingIndex)) {
+            boolean queryingIndexExists = es.aliasExists(queryingIndex)
+            boolean indexingIndexExists = es.aliasExists(indexingIndex)
+            if (!queryingIndexExists || !indexingIndexExists) {
                 indexName = es.indexNameByAlias(indexName)
-                es.pointAliasTo(queryingIndex, indexName)
-                es.pointAliasTo(indexingIndex, indexName)
+
+                if (!queryingIndexExists) {
+                    es.pointAliasTo(queryingIndex, indexName)
+                }
+                if (!indexingIndexExists) {
+                    es.pointAliasTo(indexingIndex, indexName)
+                }
             }
         }
         if (mappingConflicts) {
@@ -219,7 +230,7 @@ class SearchableClassMappingConfigurator implements ElasticSearchConfigAware {
         Map<SearchableClassMapping, Map<String, Object>> elasticMappings = [:]
         for (SearchableClassMapping scm : mappings) {
             if (scm.isRoot()) {
-                elasticMappings << [(scm): ElasticSearchMappingFactory.getElasticMapping(scm)]
+                elasticMappings << [(scm): ElasticSearchMappingFactory.getElasticMapping(scm, mappings)]
             }
         }
         elasticMappings
