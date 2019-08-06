@@ -5,7 +5,6 @@ buildscript {
         grailsVersion = project.grailsVersion
         gormVersion = project.gormVersion
         elasticsearchVersion = project.elasticsearchVersion
-        elasticsearchAttachmentsVersion = project.elasticsearchAttachmentsVersion
     }
     repositories {
         mavenLocal()
@@ -39,7 +38,6 @@ apply plugin: 'maven-publish'
 ext {
     gradleWrapperVersion = project.gradleWrapperVersion
     elasticsearchVersion = project.elasticsearchVersion
-    elasticsearchAttachmentsVersion = project.elasticsearchAttachmentsVersion
 }
 
 sourceCompatibility = 1.8
@@ -95,7 +93,7 @@ dependencies {
     compile "org.elasticsearch:elasticsearch:${elasticsearchVersion}"
     compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: elasticsearchVersion
     compile group: 'org.locationtech.spatial4j', name: 'spatial4j', version: '0.6'
-    compile group: 'org.codehaus.gpars', name: 'gpars', version: '1.2.1'
+    //compile group: 'org.codehaus.gpars', name: 'gpars', version: '1.2.1'
 
 
     console "org.grails:grails-console"
@@ -112,7 +110,6 @@ dependencies {
     testCompile 'com.vividsolutions:jts:1.13'
     testCompile 'com.googlecode.json-simple:json-simple:1.1.1'
 
-    //compile "org.elasticsearch.plugin:mapper-attachments:${elasticsearchAttachmentsVersion}"
     compile fileTree(dir: "libs/elasticsearch", include: '*.jar')
 }
 

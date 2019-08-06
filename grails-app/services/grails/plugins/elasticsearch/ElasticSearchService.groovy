@@ -21,7 +21,6 @@ import grails.persistence.support.PersistenceContextInterceptor
 import grails.plugins.elasticsearch.index.IndexRequestQueue
 import grails.plugins.elasticsearch.mapping.SearchableClassMapping
 import grails.plugins.elasticsearch.util.GXContentBuilder
-import groovyx.gpars.GParsPool
 import org.elasticsearch.action.search.SearchRequest
 import org.elasticsearch.action.search.SearchResponse
 import org.elasticsearch.client.RequestOptions
@@ -563,10 +562,19 @@ class ElasticSearchService implements GrailsApplicationAware {
 
     private static final DeprecationHandler DEPRECATION_HANDLER = new DeprecationHandler() {
         @Override
-        void usedDeprecatedName(String usedName, String modernName) {}
+        void usedDeprecatedName(String usedName, String modernName) {
+            LOG.warn("[${usedName}] is deprecated. Use [${modernName}] instead.")
+        }
 
         @Override
-        void usedDeprecatedField(String usedName, String replacedWith) {}
+        void usedDeprecatedField(String usedName, String replacedWith) {
+            LOG.warn("[${usedName}] is deprecated. Use [${replacedWith}] instead.")
+        }
+
+        @Override
+        void deprecated(String message, Object... params) {
+            LOG.warn(message, params)
+        }
     }
 
     SearchSourceBuilder setFilterInSource(SearchSourceBuilder source, Closure filter, Map params = [:]) {
