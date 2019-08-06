@@ -300,11 +300,55 @@ class ElasticSearchService implements GrailsApplicationAware {
                 int total = domainClass.count()
                 LOG.debug "Found $total instances of $domainClass"
 
-                // compute the number of rounds
-                int rounds = Math.ceil(total / max) as int
-                LOG.debug "Maximum entries allowed in each bulk request is $max, so indexing is split to $rounds iterations"
+                if (total > 0) {
+                    // compute the number of rounds
+                    int rounds = Math.ceil(total / max) as int
+                    LOG.debug "Maximum entries allowed in each bulk request is $max, so indexing is split to $rounds iterations"
 
-                GParsPool.withPool(Runtime.getRuntime().availableProcessors()) {
+                    // Couldn't get to work with hibernate due to lost/closed hibernate session errors
+                    /*GParsPool.withPool(Runtime.getRuntime().availableProcessors()) {
+                        long offset = 0L
+                        (1..rounds).each { round ->
+                            try {
+                                LOG.debug("Bulk index iteration $round: fetching $max results starting from ${offset}")
+                                persistenceInterceptor.init()
+                                persistenceInterceptor.setReadOnly()
+
+                                //List<Class<?>> results = domainClass.listOrderById([offset: offset, max: max, order: "asc"])
+                                List<Class<?>> results = domainClass.listOrderById([offset: offset, max: max, readOnly: true, sort: 'id', order: "asc"])
+
+                                // set lastId for next run
+                                offset = round * max
+
+                                // build blocks of 100s and index them in parallel
+                                results.collate(100).eachParallel { List<Map> entries ->
+                                    entries.each { def entry ->
+                                        if (operationType == INDEX_REQUEST) {
+                                            indexRequestQueue.addIndexRequest(entry)
+                                            LOG.debug("Adding the document ${entry.id} to the index request queue")
+                                        } else if (operationType == DELETE_REQUEST) {
+                                            indexRequestQueue.addDeleteRequest(entry)
+                                            LOG.debug("Adding the document ${entry.id} to the delete request queue")
+                                        }
+                                        indexRequestQueue.executeRequests()
+
+                                        entry = null
+                                    }
+                                    entries = null
+                                }
+
+                                persistenceInterceptor.flush()
+                                persistenceInterceptor.clear()
+                                persistenceInterceptor.reconnect()
+                                results = null
+                                LOG.info "Request iteration $round out of $rounds finished"
+                            } finally {
+                                persistenceInterceptor.flush()
+                                persistenceInterceptor.clear()
+                                persistenceInterceptor.destroy()
+                            }
+                        }
+                    }*/
                     long offset = 0L
                     (1..rounds).each { round ->
                         try {
@@ -318,21 +362,16 @@ class ElasticSearchService implements GrailsApplicationAware {
                             offset = round * max
 
                             // build blocks of 100s and index them in parallel
-                            results.collate(100).eachParallel { List<Map> entries ->
-                                entries.each { def entry ->
-                                    if (operationType == INDEX_REQUEST) {
-                                        indexRequestQueue.addIndexRequest(entry)
-                                        LOG.debug("Adding the document ${entry.id} to the index request queue")
-                                    } else if (operationType == DELETE_REQUEST) {
-                                        indexRequestQueue.addDeleteRequest(entry)
-                                        LOG.debug("Adding the document ${entry.id} to the delete request queue")
-                                    }
-                                    indexRequestQueue.executeRequests()
-
-                                    entry = null
+                            results.each { def entry ->
+                                if (operationType == INDEX_REQUEST) {
+                                    indexRequestQueue.addIndexRequest(entry)
+                                    LOG.debug("Adding the document ${entry.id} to the index request queue")
+                                } else if (operationType == DELETE_REQUEST) {
+                                    indexRequestQueue.addDeleteRequest(entry)
+                                    LOG.debug("Adding the document ${entry.id} to the delete request queue")
                                 }
-                                entries = null
                             }
+                            indexRequestQueue.executeRequests()
 
                             persistenceInterceptor.flush()
                             persistenceInterceptor.clear()
