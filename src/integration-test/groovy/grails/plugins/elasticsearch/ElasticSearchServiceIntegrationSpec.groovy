@@ -19,6 +19,7 @@ import org.elasticsearch.search.sort.FieldSortBuilder
 import org.elasticsearch.search.sort.SortBuilders
 import org.elasticsearch.search.sort.SortOrder
 import org.grails.web.json.JSONObject
+import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Unroll
 import test.*
@@ -329,6 +330,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             searchResults[0].productName == product.productName
     }
 
+    @Ignore('Ignored due to the fact that joined documents must be in the same shard. Elasticsearch plugin stores each domain object type in a separate index. So they could never be in the same shard if they are not of the same type.')
     void 'searching for features of the parent element from the actual element'() {
         given: 'parent and child elements'
             def parentParentElement = save new Store(name: 'Eltern-Elternelement', owner: 'Horst')
@@ -621,7 +623,6 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             search.searchResults[0].id == plane.id
     }
 
-    @Transactional
     private void createBulkData() {
         1858.times { n ->
             def person = save(new Person(firstName: 'Person', lastName: "McNumbery$n"), false)
@@ -632,15 +633,18 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
 
     void 'bulk test'() {
         given:
-            createBulkData()
 
         when:
+        Spaceship.withNewSession {
+            createBulkData()
+
             index(Spaceship)
             refreshIndices()
+        }
 
         then:
-            findFailures().size() == 0
-            elasticSearchService.countHits('Ship\\-') == 1858
+        findFailures().size() == 0
+        elasticSearchService.countHits('Ship\\-') == 1858
     }
 
     void 'Use an aggregation'() {

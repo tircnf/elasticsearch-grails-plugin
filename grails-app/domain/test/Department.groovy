@@ -16,7 +16,7 @@ class Department {
     }
 
     static searchable = {
-        store join: true, component: true
+        store join: true
     }
 
     static mapping = {
