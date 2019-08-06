@@ -242,7 +242,7 @@ class DomainClassUnmarshaller implements DataBinder {
 
                 parseResult = null
             } else if (scpm.grailsProperty.type == Date && propertyValue != null) {
-                DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'").withZone(DateTimeZone.UTC)
+                DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(DateTimeZone.UTC)
                 parseResult = DateTime.parse(propertyValue, dateTimeFormatter)
             }
         }
