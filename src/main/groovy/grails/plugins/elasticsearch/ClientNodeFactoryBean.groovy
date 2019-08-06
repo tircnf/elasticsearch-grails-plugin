@@ -70,6 +70,10 @@ class ClientNodeFactoryBean implements FactoryBean {
         }
 
         LOG.debug 'Initializing Elasticsearch RestClient'
+        if (elasticSearchContextHolder.config.client.timeout) {
+            timeout = elasticSearchContextHolder.config.client.timeout as int
+            LOG.debug "Set REST client timeout to ${timeout} seconds"
+        }
         builder.setMaxRetryTimeoutMillis(timeout * 1000)
         builder.setRequestConfigCallback(new RestClientBuilder.RequestConfigCallback() {
             @Override
