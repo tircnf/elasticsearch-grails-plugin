@@ -312,8 +312,7 @@ class ElasticSearchService implements GrailsApplicationAware {
                             persistenceInterceptor.init()
                             persistenceInterceptor.setReadOnly()
 
-                            long maxId = offset + max
-                            List<Class<?>> results = domainClass.findAllByIdBetween(offset, maxId, [readOnly: true, sort: 'id', order: 'asc'])
+                            List<Class<?>> results = domainClass.listOrderById([offset: offset, max: max, readOnly: true, sort: 'id', order: "asc"])
 
                             // set lastId for next run
                             offset = round * max
