@@ -230,7 +230,7 @@ class SearchableClassMappingConfigurator implements ElasticSearchConfigAware {
         Map<SearchableClassMapping, Map<String, Object>> elasticMappings = [:]
         for (SearchableClassMapping scm : mappings) {
             if (scm.isRoot()) {
-                elasticMappings << [(scm): ElasticSearchMappingFactory.getElasticMapping(scm, mappings)]
+                elasticMappings << [(scm): ElasticSearchMappingFactory.getElasticMapping(scm)]
             }
         }
         elasticMappings

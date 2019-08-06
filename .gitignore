@@ -4,6 +4,7 @@
 *.iws
 .gradle
 build/
+out/
 
 libs
 
