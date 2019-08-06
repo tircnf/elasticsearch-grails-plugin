@@ -48,12 +48,13 @@ class ElasticSearchMappingFactory {
     static Map<String, Object> getElasticMapping(SearchableClassMapping scm) {
         Map mappingFields = [properties: getMappingProperties(scm)]
 
-        if (scm.@all instanceof Map) {
+        // _all is deprecated in ES 6
+        /*if (scm.@all instanceof Map) {
             mappingFields.put('_all', scm.@all as Map)
         }
         if (!scm.isAll()) {
             mappingFields.put('_all', [enabled: false] as Map)
-        }
+        }*/
 
         SearchableClassPropertyMapping parentProperty = scm.propertiesMapping.find { it.parent }
         if (parentProperty) {
@@ -118,12 +119,12 @@ class ElasticSearchMappingFactory {
             }
             propOptions.type = propType
             // See http://www.elasticsearch.com/docs/elasticsearch/mapping/all_field/
-            if (!(propType in ['object', 'attachment']) && scm.isAll()) {
+            /*if (!(propType in ['object', 'attachment']) && scm.isAll()) {
                 // does it make sense to include objects into _all?
                 // is deprecated https://www.elastic.co/guide/en/elasticsearch/reference/6.4/mapping-all-field.html
                 // if wanted then should be implemented with https://www.elastic.co/guide/en/elasticsearch/reference/6.4/mapping-all-field.html#enabling-all-field
                 //propOptions.include_in_all = !scpm.shouldExcludeFromAll()
-            }
+            }*/
             // todo only enable this through configuration...
             if (propType == 'text' && scpm.isDynamic()) {
                 propOptions.type = 'object'
