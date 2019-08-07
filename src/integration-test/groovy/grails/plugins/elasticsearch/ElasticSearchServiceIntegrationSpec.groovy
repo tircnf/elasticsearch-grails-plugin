@@ -74,13 +74,13 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def product = save new Product(productName: 'myTestProduct')
 
         when:
-            search(Product, 'myTestProduct').total == 1
+            search(Product, 'myTestProduct').total.value == 1
 
         then:
             unindex(product)
 
         and:
-            search(Product, 'myTestProduct').total == 0
+            search(Product, 'myTestProduct').total.value == 0
     }
 
     void 'Indexing the same object multiple times updates the corresponding ES entry'() {
@@ -92,7 +92,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             refreshIndices()
 
         then:
-            search(Product, 'myTestProduct').total == 1
+            search(Product, 'myTestProduct').total.value == 1
 
         when:
             product.productName = 'newProductName'
@@ -102,11 +102,11 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             refreshIndices()
 
         then:
-            search(Product, 'myTestProduct').total == 0
+            search(Product, 'myTestProduct').total.value == 0
 
         and:
             def result = search(Product, product.productName)
-            result.total == 1
+            result.total.value == 1
             List<Product> searchResults = result.searchResults
             searchResults[0].productName == product.productName
     }
@@ -124,7 +124,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def result = search(Product, product.productName)
 
         then:
-            result.total == 1
+            result.total.value == 1
             List<Product> searchResults = result.searchResults
             searchResults[0].productName == product.productName
     }
@@ -141,7 +141,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def result = search(Building, building.name)
 
         then:
-            result.total == 1
+            result.total.value == 1
             List<Building> searchResults = result.searchResults
             searchResults[0].name == building.name
     }
@@ -158,7 +158,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def result = search(Product, product.productName)
 
         then:
-            result.total == 1
+            result.total.value == 1
             List<Product> searchResults = result.searchResults
             searchResults[0].productName == product.productName
             searchResults[0].date == product.date
@@ -176,7 +176,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def result = search(Building, 'EvileagueHQ')
 
         then:
-            result.total == 1
+            result.total.value == 1
             List<Building> searchResults = result.searchResults
             def resultLocation = searchResults[0].location
             resultLocation.lat == location.lat
@@ -218,7 +218,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def result = elasticSearchService.search(params, query, filter)
 
         then: 'the building should be found'
-            1 == result.total
+            1 == result.total.value
             List<Building> searchResults = result.searchResults
             searchResults[0].id == building.id
     }
@@ -239,7 +239,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
                     search(QueryBuilders.matchAllQuery(), QueryBuilders.rangeQuery("price").gte(1.99).lte(2.3))
 
         then: "the result should be product 'wurm'"
-            result.total == 1
+            result.total.value == 1
             List<Product> searchResults = result.searchResults
             searchResults[0].productName == wurmProduct.productName
     }
@@ -250,7 +250,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def result = elasticSearchService.search(QueryBuilders.matchAllQuery(), filter)
 
         then: "the result should be product 'wurm'"
-            result.total == 1
+            result.total.value == 1
             List<Product> searchResults = result.searchResults
             searchResults[0].productName == "wurm"
     }
@@ -261,7 +261,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def result = elasticSearchService.search(QueryBuilders.matchAllQuery(), filter)
 
         then: "the result should be product 'wurm'"
-            result.total == 1
+            result.total.value == 1
             List<Product> searchResults = result.searchResults
             searchResults[0].productName == "wurm"
     }
@@ -275,7 +275,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def result = search(Product, { wildcard(productName: '*st') })
 
         then: 'the result should contain 2 products'
-            result.total == 2
+            result.total.value == 2
             List<Product> searchResults = result.searchResults
             searchResults*.productName.containsAll('best', 'horst')
     }
@@ -293,7 +293,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
                     }, params2)
 
         then: 'the result should return 2 products'
-            result2.total == 2
+            result2.total.value == 2
             List<Product> searchResults2 = result2.searchResults
             searchResults2*.productName.containsAll('horst', 'hobbit')
     }
@@ -309,7 +309,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             }
 
         then: 'the result should return 1 product'
-            result.total == 1
+            result.total.value == 1
             List<Product> searchResults3 = result.searchResults
             searchResults3[0].productName == 'high and supreme'
     }
@@ -325,7 +325,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def result = elasticSearchService.search({ match(productName: 'ästhätik') })
 
         then: 'the result should contain 1 product'
-            result.total == 1
+            result.total.value == 1
             List<Product> searchResults = result.searchResults
             searchResults[0].productName == product.productName
     }
@@ -366,7 +366,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def result = elasticSearchService.search(query, params)
 
         then: 'the correct result-part is returned'
-            result.total == 10
+            result.total.value == 10
             result.searchResults.size() == 2
             result.searchResults*.productName == ['Produkt3', 'Produkt4']
     }
@@ -406,7 +406,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             result = elasticSearchService.search(query, params)
 
         then: 'the correct result-part is returned'
-            result.total == 4
+            result.total.value == 4
             result.searchResults.size() == 4
             result.searchResults*.productName == ['Yogurt1', 'Yogurt1', 'Yogurt0', 'Yogurt0']
             result.searchResults*.price == [0, 1, 0, 1]
@@ -425,7 +425,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             }
 
         then: 'the correct result-part is returned'
-            result.total == 1
+            result.total.value == 1
             result.searchResults.size() == 1
             result.searchResults*.productName == ['Großer Kasten']
     }
@@ -475,7 +475,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             }
 
         then: 'the correct result-part is returned'
-            result.total == 1
+            result.total.value == 1
             result.searchResults.size() == 1
             result.searchResults*.productName == ['KLeiner kasten']
     }
@@ -526,7 +526,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def search = search(Spaceship, 'serenity')
 
         then:
-            search.total == 1
+            search.total.value == 1
 
             def result = search.searchResults.first()
             result.name == 'Serenity'
@@ -548,7 +548,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             }
 
         then:
-            search.total == 1
+            search.total.value == 1
 
             def result = search.searchResults.first()
             result.name == 'USS Grissom'
@@ -570,7 +570,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             }
 
         then:
-            search.total == 1
+            search.total.value == 1
 
             def result = search.searchResults.first()
             result.name == 'Intrepid'
@@ -599,7 +599,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             }
 
         then: "the json data should be searchable as if it was an actual component of the Spaceship"
-            search.total == 1
+            search.total.value == 1
             def result = search.searchResults.first()
             def shipData = JSON.parse(result.shipData)
 
@@ -619,7 +619,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def search = search(Toy, 'Yellow')
 
         then:
-            search.total == 1
+            search.total.value == 1
             search.searchResults[0].id == plane.id
     }
 
@@ -669,7 +669,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             def search = search(request, [indices: Product, types: Product])
 
         then:
-            search.total == 2
+            search.total.value == 2
             search.aggregations.'max_price'.value == 5.99f
     }
 

@@ -570,11 +570,6 @@ class ElasticSearchService implements GrailsApplicationAware {
         void usedDeprecatedField(String usedName, String replacedWith) {
             LOG.warn("[${usedName}] is deprecated. Use [${replacedWith}] instead.")
         }
-
-        @Override
-        void deprecated(String message, Object... params) {
-            LOG.warn(message, params)
-        }
     }
 
     SearchSourceBuilder setFilterInSource(SearchSourceBuilder source, Closure filter, Map params = [:]) {
@@ -655,9 +650,9 @@ class ElasticSearchService implements GrailsApplicationAware {
      * @param params
      * @return Integer The number of hits for the query
      */
-    Integer count(SearchRequest request, Map params) {
+    Long count(SearchRequest request, Map params) {
         def result = search(request, params)
-        result.total
+        result.total.value
     }
     /**
      * Sets the indices & types properties on SearchRequest & CountRequest

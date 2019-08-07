@@ -29,7 +29,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             refreshIndices()
 
         expect:
-            search(Photo, 'Captain').total == 5
+            search(Photo, 'Captain').total.value == 5
 
         when:
             def results = Photo.search {
@@ -37,7 +37,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             }
 
         then:
-            results.total == 5
+            results.total.value == 5
             results.searchResults.every { it.name =~ /Captain/ }
     }
 
@@ -46,7 +46,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             refreshIndices()
 
         expect:
-            search(Photo, 'Captain').total == 5
+            search(Photo, 'Captain').total.value == 5
 
         when:
             def results = Photo.search({
@@ -56,7 +56,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             })
 
         then:
-            results.total == 1
+            results.total.value == 1
             results.searchResults[0].name == 'Captain Kirk'
     }
 
@@ -65,14 +65,14 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             refreshIndices()
 
         expect:
-            search(Photo, 'Captain').total == 5
+            search(Photo, 'Captain').total.value == 5
 
         when:
             QueryBuilder query = QueryBuilders.termQuery('url', 'http://www.nicenicejpg.com/100')
             def results = Photo.search(query)
 
         then:
-            results.total == 1
+            results.total.value == 1
             results.searchResults[0].name == 'Captain Kirk'
     }
 
@@ -81,7 +81,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             refreshIndices()
 
         expect:
-            search(Photo, 'Captain').total == 5
+            search(Photo, 'Captain').total.value == 5
 
         when:
             QueryBuilder query = QueryBuilders.matchQuery('name', 'Captain')
@@ -91,7 +91,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
                     })
 
         then:
-            results.total == 1
+            results.total.value == 1
             results.searchResults[0].name == 'Captain Kirk'
     }
 
@@ -100,7 +100,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             refreshIndices()
 
         expect:
-            search(Photo, 'Captain').total == 5
+            search(Photo, 'Captain').total.value == 5
 
         when:
             QueryBuilder query = QueryBuilders.matchAllQuery()
@@ -108,7 +108,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             def results = Photo.search(query, filter)
 
         then:
-            results.total == 1
+            results.total.value == 1
             results.searchResults[0].name == 'Captain Kirk'
     }
 
@@ -117,7 +117,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             refreshIndices()
 
         expect:
-            search(Photo, 'Captain').total == 5
+            search(Photo, 'Captain').total.value == 5
 
         when:
             QueryBuilder filter = QueryBuilders.termQuery('url', 'http://www.nicenicejpg.com/100')
@@ -126,7 +126,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             }, filter)
 
         then:
-            results.total == 1
+            results.total.value == 1
             results.searchResults[0].name == 'Captain Kirk'
     }
 }

@@ -6,6 +6,7 @@ import grails.plugins.elasticsearch.ElasticSearchSpec
 import grails.plugins.elasticsearch.exception.MappingException
 import grails.testing.mixin.integration.Integration
 import grails.transaction.Rollback
+import org.apache.lucene.search.TotalHits
 import org.elasticsearch.common.bytes.BytesArray
 import org.elasticsearch.common.text.Text
 import org.elasticsearch.search.SearchHit
@@ -44,7 +45,7 @@ class DomainClassUnmarshallerIntegrationSpec extends Specification implements El
             SearchHit[] hits = [hit]
             def maxScore = 0.1534264087677002f
             def totalHits = 1
-            def searchHits = new SearchHits(hits, totalHits, maxScore)
+            def searchHits = new SearchHits(hits, new TotalHits(totalHits, TotalHits.Relation.EQUAL_TO), maxScore)
 
         when: 'an geo_point is unmarshalled'
             def results = unmarshaller.buildResults(searchHits)
@@ -67,7 +68,7 @@ class DomainClassUnmarshallerIntegrationSpec extends Specification implements El
             SearchHit[] hits = [hit]
             def maxScore = 0.1534264087677002f
             def totalHits = 1
-            def searchHits = new SearchHits(hits, totalHits, maxScore)
+            def searchHits = new SearchHits(hits, new TotalHits(totalHits, TotalHits.Relation.EQUAL_TO), maxScore)
             GroovySpy(MappingException, global: true)
 
         when: 'the color is unmarshalled'
@@ -97,7 +98,7 @@ class DomainClassUnmarshallerIntegrationSpec extends Specification implements El
             SearchHit[] hits = [hit]
             def maxScore = 0.1534264087677002f
             def totalHits = 1
-            def searchHits = new SearchHits(hits, totalHits, maxScore)
+            def searchHits = new SearchHits(hits, new TotalHits(totalHits, TotalHits.Relation.EQUAL_TO), maxScore)
             GroovySpy(MappingException, global: true)
 
         when: 'the circle is unmarshalled'

@@ -40,7 +40,8 @@ class ClientNodeFactoryBean implements FactoryBean {
 
     Object getObject() {
 
-        int timeout = 2
+        int connectTimeout = 2
+        int socketTimeout = 30
 
         RestClientBuilder builder = null
 
@@ -70,15 +71,19 @@ class ClientNodeFactoryBean implements FactoryBean {
         }
 
         LOG.debug 'Initializing Elasticsearch RestClient'
-        if (elasticSearchContextHolder.config.client.timeout) {
-            timeout = elasticSearchContextHolder.config.client.timeout as int
-            LOG.debug "Set REST client timeout to ${timeout} seconds"
-        }
-        builder.setMaxRetryTimeoutMillis(timeout * 1000)
+        //builder.setMaxRetryTimeoutMillis(timeout * 1000)
         builder.setRequestConfigCallback(new RestClientBuilder.RequestConfigCallback() {
             @Override
             RequestConfig.Builder customizeRequestConfig(RequestConfig.Builder requestConfigBuilder) {
-                return requestConfigBuilder.setConnectTimeout(timeout * 1000).setSocketTimeout(timeout * 1000)
+                if (elasticSearchContextHolder.config.client.connectTimeout) {
+                    connectTimeout = elasticSearchContextHolder.config.client.connectTimeout as int
+                    LOG.debug "Set REST client connect timeout to ${connectTimeout} seconds"
+                }
+                if (elasticSearchContextHolder.config.client.socketTimeout) {
+                    socketTimeout = elasticSearchContextHolder.config.client.socketTimeout as int
+                    LOG.debug "Set REST client socket timeout to ${socketTimeout} seconds"
+                }
+                return requestConfigBuilder.setConnectTimeout(connectTimeout * 1000).setSocketTimeout(socketTimeout * 1000)
                         .setConnectionRequestTimeout(0);
             }
         })
