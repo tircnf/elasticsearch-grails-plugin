@@ -32,7 +32,8 @@ test/reports
 data/
 
 # 'local' elasticsearch
-/elastic/
+**/elastic/**
+gradle/tools/elastic-*
 *.part
 
 #Elasticserch plugin binaries
