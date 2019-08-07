@@ -31,6 +31,10 @@ plugin.xml
 test/reports
 data/
 
+# 'local' elasticsearch
+/elastic/
+*.part
+
 #Elasticserch plugin binaries
 src/integration-test/resources/elasticsearch/plugins
 

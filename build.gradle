@@ -10,22 +10,24 @@ buildscript {
         mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
         maven { url 'https://artifacts.elastic.co/maven' }
+        maven { url "http://dl.bintray.com/cgoit/maven" }
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
         classpath 'org.ajoberstar:gradle-git:1.4.2'
         classpath "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
+        classpath "cgoit.gradle.elasticsearch:gradle-elasticsearch-plugin:0.0.21"
     }
 }
 
 plugins {
-    id "com.jfrog.bintray" version "1.2"
-    id 'com.jfrog.artifactory' version '4.0.0'
-    id "de.undercouch.download" version "3.2.0"
+    id "com.jfrog.bintray" version "1.8.4"
+    id 'com.jfrog.artifactory' version '4.9.8'
+    id "de.undercouch.download" version "4.0.0"
 }
 
-version '2.6.0.BUILD-SNAPSHOT'
+version '2.7.0.BUILD-SNAPSHOT'
 group "org.grails.plugins"
 
 apply plugin: 'eclipse'
@@ -34,6 +36,7 @@ apply plugin: "org.grails.grails-plugin"
 apply plugin: "org.grails.grails-plugin-publish"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: 'maven-publish'
+apply plugin: 'cgoit.gradle.elasticsearch'
 
 ext {
     gradleWrapperVersion = project.gradleWrapperVersion
@@ -132,6 +135,35 @@ clean.doLast {
 
 task cleanDataDir(type: Delete) {
     delete fileTree(dir: 'data')
+}
+
+integrationTest {
+    doFirst {
+        startElasticsearch {
+            elasticsearchVersion = elasticsearchVersion
+            httpHost = "localhost"
+            httpPort = 9200
+            transportPort = 9300
+            dataDir = file("$buildDir/elastic")
+            logsDir = file("$buildDir/elastic/logs")
+        }
+    }
+
+    doLast {
+        stopElasticsearch {
+            httpHost = "localhost"
+            httpPort = 9200
+        }
+    }
+}
+
+gradle.taskGraph.afterTask { Task task, TaskState taskState ->
+    if (task.name == "integrationTest") {
+        stopElasticsearch {
+            httpHost = "localhost"
+            httpPort = 9200
+        }
+    }
 }
 
 bootRun {
