@@ -28,6 +28,7 @@ import grails.web.databinding.DataBinder
 import org.codehaus.groovy.runtime.DefaultGroovyMethods
 import org.elasticsearch.action.get.GetRequest
 import org.elasticsearch.action.get.GetResponse
+import org.elasticsearch.client.RequestOptions
 import org.elasticsearch.client.RestHighLevelClient
 import org.elasticsearch.search.SearchHit
 import org.elasticsearch.search.SearchHits
@@ -261,12 +262,11 @@ class DomainClassUnmarshaller implements DataBinder {
         TypeConverter typeConverter = new SimpleTypeConverter()
         // A property value is expected to be a map in the form [id:ident]
         Object id = data.id
-        GetRequest request = new GetRequest(indexName).operationThreaded(false).type(name)
-                .id(typeConverter.convertIfNecessary(id, String))
+        GetRequest request = new GetRequest(indexName).id(typeConverter.convertIfNecessary(id, String))
         if (data.containsKey('parent')) {
             request.parent(typeConverter.convertIfNecessary(data.parent, String))
         }
-        GetResponse response = elasticSearchClient.get(request).actionGet()
+        GetResponse response = elasticSearchClient.get(request, RequestOptions.DEFAULT)
         Map<String, Object> resolvedReferenceData = response.sourceAsMap
         Assert.state(resolvedReferenceData != null, "Could not find and resolve searchable reference: $request")
         unmarshallDomain(domainClass, response.id, resolvedReferenceData, unmarshallingContext)

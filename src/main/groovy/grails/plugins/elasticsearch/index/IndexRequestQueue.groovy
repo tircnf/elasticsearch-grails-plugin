@@ -184,7 +184,7 @@ class IndexRequestQueue {
 
                 try {
                     XContentBuilder json = toJSON(value)
-                    bulkProcessor.add(new IndexRequest(scm.indexingIndex, scm.elasticTypeName, key.id).source(json))
+                    bulkProcessor.add(new IndexRequest(scm.indexingIndex).id(key.id).source(json))
 
                     if (LOG.isDebugEnabled()) {
                         try {
