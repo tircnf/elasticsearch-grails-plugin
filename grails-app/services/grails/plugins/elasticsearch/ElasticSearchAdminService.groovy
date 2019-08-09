@@ -326,7 +326,7 @@ class ElasticSearchAdminService {
                             .index(index)
                             .alias(alias)
             request.addAliasAction(aliasAction)
-            println "index: ${index}; alias: ${alias}"
+            LOG.debug "Create alias -> index: ${index}; alias: ${alias}"
             client.indices().updateAliases(request, RequestOptions.DEFAULT)
         }
     }
