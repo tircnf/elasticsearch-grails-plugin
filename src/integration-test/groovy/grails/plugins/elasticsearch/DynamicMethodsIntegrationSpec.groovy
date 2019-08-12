@@ -2,6 +2,7 @@ package grails.plugins.elasticsearch
 
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
+import org.elasticsearch.index.query.Operator
 import org.elasticsearch.index.query.QueryBuilder
 import org.elasticsearch.index.query.QueryBuilders
 import spock.lang.Specification
@@ -52,7 +53,9 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             def results = Photo.search({
                 match(name: 'Captain')
             }, {
-                term(url: 'http://www.nicenicejpg.com/100')
+                match {
+                    "url"(query: "http://www.nicenicejpg.com/100", operator: "and")
+                }
             })
 
         then:
@@ -68,7 +71,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             search(Photo, 'Captain').total.value == 5
 
         when:
-            QueryBuilder query = QueryBuilders.termQuery('url', 'http://www.nicenicejpg.com/100')
+            QueryBuilder query = QueryBuilders.matchQuery('url', 'http://www.nicenicejpg.com/100').operator(Operator.AND)
             def results = Photo.search(query)
 
         then:
@@ -87,7 +90,9 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             QueryBuilder query = QueryBuilders.matchQuery('name', 'Captain')
             def results = Photo.search(query,
                     {
-                        term(url: 'http://www.nicenicejpg.com/100')
+                        match {
+                            "url"(query: "http://www.nicenicejpg.com/100", operator: "and")
+                        }
                     })
 
         then:
@@ -104,7 +109,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
 
         when:
             QueryBuilder query = QueryBuilders.matchAllQuery()
-            QueryBuilder filter = QueryBuilders.termQuery('url', 'http://www.nicenicejpg.com/100')
+            QueryBuilder filter = QueryBuilders.matchQuery('url', 'http://www.nicenicejpg.com/100').operator(Operator.AND)
             def results = Photo.search(query, filter)
 
         then:
@@ -120,7 +125,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             search(Photo, 'Captain').total.value == 5
 
         when:
-            QueryBuilder filter = QueryBuilders.termQuery('url', 'http://www.nicenicejpg.com/100')
+            QueryBuilder filter = QueryBuilders.matchQuery('url', 'http://www.nicenicejpg.com/100').operator(Operator.AND)
             def results = Photo.search({
                 match(name: 'Captain')
             }, filter)

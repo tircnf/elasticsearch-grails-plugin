@@ -208,7 +208,7 @@ class SearchableClassPropertyMapping {
      */
     boolean isAnalyzed() {
         String index = (String) mappingAttributes.index
-        (index == null || index == 'analyzed')
+        (index == null || index)
     }
 
     /**
