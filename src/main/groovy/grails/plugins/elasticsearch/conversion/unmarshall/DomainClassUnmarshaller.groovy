@@ -25,6 +25,11 @@ import grails.plugins.elasticsearch.mapping.DomainProperty
 import grails.plugins.elasticsearch.mapping.SearchableClassMapping
 import grails.plugins.elasticsearch.mapping.SearchableClassPropertyMapping
 import grails.web.databinding.DataBinder
+
+import java.time.OffsetDateTime
+import java.time.OffsetTime
+import java.time.temporal.Temporal
+import java.time.format.DateTimeFormatter as JDateTimeFormatter
 import org.codehaus.groovy.runtime.DefaultGroovyMethods
 import org.elasticsearch.action.get.GetRequest
 import org.elasticsearch.action.get.GetResponse
@@ -36,7 +41,6 @@ import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
-import org.joda.time.format.ISODateTimeFormat
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.SimpleTypeConverter
@@ -44,6 +48,9 @@ import org.springframework.beans.TypeConverter
 import org.springframework.util.Assert
 
 import java.beans.PropertyEditor
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 /**
  * Domain class unmarshaller.
@@ -245,6 +252,29 @@ class DomainClassUnmarshaller implements DataBinder {
             } else if (scpm.grailsProperty.type == Date && propertyValue != null) {
                 DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(DateTimeZone.UTC)
                 parseResult = DateTime.parse(propertyValue, dateTimeFormatter)
+            } else if (Temporal.isAssignableFrom(scpm.grailsProperty.type) && propertyValue != null) {
+                switch (scpm.grailsProperty.type) {
+                    case LocalDate:
+                        JDateTimeFormatter dateTimeFormatter = JDateTimeFormatter.ISO_LOCAL_DATE
+                        parseResult = LocalDate.parse(propertyValue, dateTimeFormatter)
+                        break
+                    case LocalDateTime:
+                        JDateTimeFormatter dateTimeFormatter = JDateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX")
+                        parseResult = LocalDateTime.parse(propertyValue, dateTimeFormatter)
+                        break
+                    case ZonedDateTime:
+                        JDateTimeFormatter dateTimeFormatter = JDateTimeFormatter.ISO_OFFSET_DATE_TIME
+                        parseResult = ZonedDateTime.parse(propertyValue, dateTimeFormatter)
+                        break
+                    case OffsetDateTime:
+                        JDateTimeFormatter dateTimeFormatter = JDateTimeFormatter.ISO_OFFSET_DATE_TIME
+                        parseResult = OffsetDateTime.parse(propertyValue, dateTimeFormatter)
+                        break
+                    case OffsetTime:
+                        JDateTimeFormatter dateTimeFormatter = JDateTimeFormatter.ISO_OFFSET_TIME
+                        parseResult = OffsetTime.parse(propertyValue, dateTimeFormatter)
+                        break
+                }
             }
         }
 

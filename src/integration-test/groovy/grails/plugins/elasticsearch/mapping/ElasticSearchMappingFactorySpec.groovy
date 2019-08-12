@@ -46,6 +46,7 @@ class ElasticSearchMappingFactorySpec extends Specification {
 
             Building | 'name'            | 'text'
             Building | 'date'            | 'date'
+            Building | 'localDate'       | 'date'
             Building | 'location'        | 'geo_point'
 
             Product  | 'price'           | 'float'

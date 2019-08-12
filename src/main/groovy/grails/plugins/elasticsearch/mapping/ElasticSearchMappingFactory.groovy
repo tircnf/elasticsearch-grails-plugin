@@ -23,6 +23,11 @@ import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.springframework.util.ClassUtils
 
+import java.time.OffsetDateTime
+import java.time.OffsetTime
+import java.time.ZonedDateTime
+import java.time.temporal.Temporal
+
 /**
  * Build ElasticSearch class mapping based on attributes provided by closure.
  */
@@ -33,14 +38,13 @@ class ElasticSearchMappingFactory {
     private static final Set<String> SUPPORTED_FORMAT =
             ['text', 'integer', 'long', 'float', 'double', 'boolean', 'null', 'date', 'keyword'] as Set<String>
 
-    private static Class JODA_TIME_BASE
-
     static Map<String, String> javaPrimitivesToElastic =
             [int: 'integer', long: 'long', short: 'short', double: 'double', float: 'float', byte: 'byte']
 
+    private static Set<Class> DATE_CLASSES = [Date, Temporal] as Set<Class>
     static {
         try {
-            JODA_TIME_BASE = Class.forName('org.joda.time.ReadableInstant')
+            DATE_CLASSES.add(Class.forName('org.joda.time.ReadableInstant'))
         } catch (ClassNotFoundException e) {
         }
     }
@@ -150,6 +154,14 @@ class ElasticSearchMappingFactory {
             if (propType == 'text' && scpm.fieldDataEnabled){
                 propOptions.fielddata = true
             }
+            if (propType == 'date') {
+                if (scpm.grailsProperty.type == ZonedDateTime || scpm.grailsProperty.type == OffsetDateTime) {
+                    propOptions.format = 'strict_date_time'
+                }
+                if (scpm.grailsProperty.type == OffsetTime) {
+                    propOptions.format = 'strict_time'
+                }
+            }
             elasticTypeMappingProperties.put(scpm.getPropertyName(), propOptions)
         }
         elasticTypeMappingProperties
@@ -226,7 +238,7 @@ class ElasticSearchMappingFactory {
 
     private static String getTypeSimpleName(Class type, SearchableClassPropertyMapping scpm) {
         String name = ClassUtils.getShortName(type).toLowerCase(Locale.ENGLISH)
-        if(name == 'string'){
+        if (name == 'string'){
             name = scpm.analyzed ? 'text' : 'keyword'
         }
         return name
@@ -253,7 +265,7 @@ class ElasticSearchMappingFactory {
     }
 
     private static boolean isDateType(Class type) {
-        (JODA_TIME_BASE != null && JODA_TIME_BASE.isAssignableFrom(type)) || Date.isAssignableFrom(type)
+        DATE_CLASSES.any { it.isAssignableFrom(type) }
     }
 
     private static boolean isBigDecimalType(Class type) {

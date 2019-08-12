@@ -26,6 +26,13 @@ import test.*
 import test.custom.id.Toy
 
 import java.math.RoundingMode
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
+import java.time.OffsetTime
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 
 @Integration
 @Rollback
@@ -148,20 +155,52 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
 
     void 'a date value should be marshalled and de-marshalled correctly'() {
         given:
-            def date = new Date()
-            def product = save new Product(productName: 'product with date value', date: date)
+        def date = new Date()
+        def product = save new Product(productName: 'product with date value', date: date)
 
-            index(product)
-            refreshIndices()
+        index(product)
+        refreshIndices()
 
         when:
-            def result = search(Product, product.productName)
+        def result = search(Product, product.productName)
 
         then:
-            result.total.value == 1
-            List<Product> searchResults = result.searchResults
-            searchResults[0].productName == product.productName
-            searchResults[0].date == product.date
+        result.total.value == 1
+        List<Product> searchResults = result.searchResults
+        searchResults[0].productName == product.productName
+        searchResults[0].date == product.date
+    }
+
+    void 'a temporal type value should be marshalled and de-marshalled correctly'() {
+        given:
+        def zoneId = ZoneId.ofOffset('', ZoneOffset.ofHours(-4))
+        def localDate = LocalDate.now()
+        def localDateTime = LocalDateTime.now()
+        def zonedDateTime = ZonedDateTime.now(zoneId)
+        def offsetDateTime = OffsetDateTime.now(zoneId)
+        def offsetTime = OffsetTime.now(zoneId)
+        def dates = save new Dates(name: 'Object with java.util.time types',
+                localDate: localDate,
+                localDateTime: localDateTime,
+                zonedDateTime: zonedDateTime,
+                offsetDateTime: offsetDateTime,
+                offsetTime: offsetTime)
+
+        index(dates)
+        refreshIndices()
+
+        when:
+        def result = search(Dates, dates.name)
+
+        then:
+        result.total.value == 1
+        List<Dates> searchResults = result.searchResults
+        searchResults[0].name == dates.name
+        searchResults[0].localDate == dates.localDate
+        searchResults[0].localDateTime == dates.localDateTime
+        searchResults[0].zonedDateTime == dates.zonedDateTime
+        searchResults[0].offsetDateTime == dates.offsetDateTime
+        searchResults[0].offsetTime == dates.offsetTime
     }
 
     void 'a geo point location is marshalled and de-marshalled correctly'() {
@@ -635,12 +674,10 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         given:
 
         when:
-        Spaceship.withNewSession {
-            createBulkData()
+        createBulkData()
 
-            index(Spaceship)
-            refreshIndices()
-        }
+        index(Spaceship)
+        refreshIndices()
 
         then:
         findFailures().size() == 0
