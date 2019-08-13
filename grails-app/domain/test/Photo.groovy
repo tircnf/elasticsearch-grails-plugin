@@ -9,6 +9,7 @@ class Photo extends AbstractImage {
     }
 
     static searchable = {
+        name fielddata: true
         url index: true
     }
 

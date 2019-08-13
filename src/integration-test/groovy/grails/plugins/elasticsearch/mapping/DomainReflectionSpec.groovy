@@ -348,10 +348,10 @@ class DomainReflectionSpec extends Specification implements ElasticSearchSpec {
     }
 
     private static final Set<String> PHOTO_PROPERTIES =
-            ['id', 'version', 'name', 'url'] as Set
+            ['id', 'version', 'name', 'url', 'size', 'type'] as Set
 
     private static final Set<String> PHOTO_PERSISTENT_PROPERTIES =
-            ['name', 'url'] as Set
+            ['name', 'url', 'size', 'type'] as Set
 
     private static final Map<String, Class<?>> PHOTO_ASSOCIATIONS = [:]
 
@@ -402,6 +402,32 @@ class DomainReflectionSpec extends Specification implements ElasticSearchSpec {
                 name == 'url'
                 typePropertyName == 'string'
                 referencedPropertyType == String
+
+                !association
+                associationType == null
+                referencedDomainEntity == null
+            }
+
+            with(photo.getPropertyByName('type')) {
+                persistent
+
+                type == String
+                name == 'type'
+                typePropertyName == 'string'
+                referencedPropertyType == String
+
+                !association
+                associationType == null
+                referencedDomainEntity == null
+            }
+
+            with(photo.getPropertyByName('size')) {
+                persistent
+
+                type == int
+                name == 'size'
+                typePropertyName == 'int'
+                referencedPropertyType == int
 
                 !association
                 associationType == null

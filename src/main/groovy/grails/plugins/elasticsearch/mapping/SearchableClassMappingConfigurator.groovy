@@ -237,7 +237,7 @@ class SearchableClassMappingConfigurator implements ElasticSearchConfigAware {
     }
 
     private int numberOfReplicas() {
-        int defaultNumber = indexSettings.numberOfReplicas as int
+        def defaultNumber = indexSettings.numberOfReplicas
         if (!defaultNumber) {
             return 0
         }

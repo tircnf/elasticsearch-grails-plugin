@@ -692,18 +692,11 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
             index(jim, xlJim)
             refreshIndices()
 
-            def query = QueryBuilders.matchQuery('productName', 'jim')
-            SearchRequest request = new SearchRequest()
-            request.searchType SearchType.DFS_QUERY_THEN_FETCH
-
-            SearchSourceBuilder source = new SearchSourceBuilder()
-            source.aggregation(AggregationBuilders.max('max_price').field('price'))
-            source.query(query)
-
-            request.source(source)
-
         when:
-            def search = search(request, [indices: Product, types: Product])
+            def search = elasticSearchService.search(
+                    QueryBuilders.matchQuery('productName', 'jim'),
+                    null as Closure,
+                    AggregationBuilders.max('max_price').field('price'))
 
         then:
             search.total.value == 2
