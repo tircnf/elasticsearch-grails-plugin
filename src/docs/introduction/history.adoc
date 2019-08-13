@@ -9,6 +9,7 @@
 **** Return type of count method in ElasticSearchService is now `java.lang.Long` (was `java.lang.Integer` before)
 **** The property `total` in class `grails.plugins.elasticsearch.ElasticSearchResult` is now of type `org.apache.lucene.search.TotalHits`
 *** Make java.time classes usable
+*** Make aggregations usable with this plugin
 
 
 * August 6, 2019

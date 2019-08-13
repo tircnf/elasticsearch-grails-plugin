@@ -48,7 +48,6 @@ import org.elasticsearch.search.sort.SortBuilder
 import org.elasticsearch.search.sort.SortOrder
 
 import static grails.plugins.elasticsearch.util.AbstractQueryBuilderParser.parseInnerQueryBuilder
-import static grails.plugins.elasticsearch.util.AbstractAggregationBuilderParser.parseInnerAggregationBuilder
 import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery
 
 @Slf4j
