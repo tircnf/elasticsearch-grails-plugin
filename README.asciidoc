@@ -24,7 +24,7 @@ Edit your project's +build.gradle+ file, by adding the plugin's dependency decla
 ----
 dependencies {
     ...
-    compile "org.grails.plugins:elasticsearch:2.4.2"
+    compile "org.grails.plugins:elasticsearch:2.7.0.RC1"
     ...
 
 }
@@ -33,10 +33,14 @@ dependencies {
 
 === Versioning
 
-In order to simply the versioning, with v2.5.0 the Elasticsearch Grails plugin is using Semantic Versioning 2.0.0. To understand what that means, please see the specification [documentation](https://semver.org/).
+In order to simply the versioning, with v2.7.0 the Elasticsearch Grails plugin is using Semantic Versioning 2.0.0. To understand what that means, please see the specification [documentation](https://semver.org/).
 
 |===
 |Plugin Version | Grails Version | Elasticsearch Version
+
+|2.7.0
+|3.3.y
+|7.3.0
 
 |2.5.0
 |3.3.x
