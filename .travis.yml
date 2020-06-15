@@ -17,7 +17,7 @@ before_install:
 - docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "cluster.name=elasticsearch"  -e "discovery.type=single-node" elasticsearch:7.7.1
 before_script:
 - rm -rf target
-script: ./travis-build.sh
+script: travis_wait 60 ./travis-build.sh
 env:
   global:
   - GIT_NAME="Puneet Behl"
