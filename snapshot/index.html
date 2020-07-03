@@ -487,6 +487,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#highlighting">6.6. Highlighting</a></li>
 <li><a href="#sorting">6.7. Sorting</a></li>
 <li><a href="#pagination">6.8. Pagination</a></li>
+<li><a href="#aggregation">6.9. Aggregation</a></li>
 </ul>
 </li>
 <li><a href="#admin">7. Admin</a>
@@ -557,13 +558,81 @@ reference for its syntax and behaviour.</p>
 <div class="sect2">
 <h3 id="history">1.2. History</h3>
 <div class="sect3">
-<h4 id="grails-3-x-version">1.2.1. Grails 3.x version</h4>
+<h4 id="grails-4-x-version">1.2.1. Grails 4.x version</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>3.0.0.M1</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgraded to Grails 4.0.0</p>
+</li>
+<li>
+<p>Upgraded to Elasticsearch 7.8.0</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Return type of count method in ElasticSearchService is now <code>java.lang.Long</code> (was <code>java.lang.Integer</code> before)</p>
+</li>
+<li>
+<p>The property <code>total</code> in class <code>grails.plugins.elasticsearch.ElasticSearchResult</code> is now of type <code>org.apache.lucene.search.TotalHits</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Make java.time classes usable</p>
+</li>
+<li>
+<p>Make aggregations usable with this plugin</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="grails-3-x-version">1.2.2. Grails 3.x version</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>2.7.0.M1</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgraded to Grails 3.3.10</p>
+</li>
+<li>
+<p>Upgraded to Elasticsearch 7.3.0</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Return type of count method in ElasticSearchService is now <code>java.lang.Long</code> (was <code>java.lang.Integer</code> before)</p>
+</li>
+<li>
+<p>The property <code>total</code> in class <code>grails.plugins.elasticsearch.ElasticSearchResult</code> is now of type <code>org.apache.lucene.search.TotalHits</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Make java.time classes usable</p>
+</li>
+<li>
+<p>Make aggregations usable with this plugin</p>
 <div class="ulist">
 <ul>
 <li>
 <p>May 10, 2018</p>
-<div class="ulist">
-<ul>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>2.4.1</p>
 <div class="ulist">
@@ -573,17 +642,17 @@ reference for its syntax and behaviour.</p>
 </li>
 <li>
 <p>Added configuration <code>elasticSearch.plugin.mapperAttachment.enabled</code> to disable Mapper Attachment plugin.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>December 12, 2017</p>
 <div class="ulist">
 <ul>
+<li>
+<p>December 12, 2017</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>2.4.0.RC1</p>
 <div class="ulist">
@@ -593,17 +662,17 @@ reference for its syntax and behaviour.</p>
 </li>
 <li>
 <p>The mapper-attachments plugin has been changed to <code>provided</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>August 17, 2017</p>
 <div class="ulist">
 <ul>
+<li>
+<p>August 17, 2017</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>1.4.1</p>
 <div class="ulist">
@@ -626,20 +695,20 @@ reference for its syntax and behaviour.</p>
 </li>
 <li>
 <p>Ignore _all configuration for component objects</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>June 3, 2016</p>
 <div class="ulist">
 <ul>
+<li>
+<p>June 3, 2016</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>1.2.0</p>
 <div class="ulist">
@@ -659,17 +728,17 @@ reference for its syntax and behaviour.</p>
 </li>
 <li>
 <p>Removed test classes from plugin distribution</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>April 18, 2016</p>
 <div class="ulist">
 <ul>
+<li>
+<p>April 18, 2016</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>1.0.0.1</p>
 <div class="ulist">
@@ -679,17 +748,17 @@ reference for its syntax and behaviour.</p>
 </li>
 <li>
 <p>Updated documentation to asciidoc</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>February 29, 2016</p>
 <div class="ulist">
 <ul>
+<li>
+<p>February 29, 2016</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>1.0.0</p>
 <div class="ulist">
@@ -702,12 +771,9 @@ reference for its syntax and behaviour.</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect3">
-<h4 id="grails-2-x-version">1.2.2. Grails 2.x version</h4>
+<h4 id="grails-2-x-version">1.2.3. Grails 2.x version</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1221,6 +1287,9 @@ reference for its syntax and behaviour.</p>
 <li>
 <p><a href="https://github.com/puneetbehl">Puneet Behl</a></p>
 </li>
+<li>
+<p><a href="https://github.com/cgoIT">Carsten Götzinger (cgo IT)</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -1279,54 +1348,64 @@ If necessary a 4th level point release number will be used for successive change
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Plugin Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Plugin Version</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Grails</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Elasticsearch</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.5.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3.0.0.M1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>4.0.x</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>7.x</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.7.0</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3.3.x</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>7.x</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.5.0</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3.3.x</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>5.5.3</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.4.2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3.3.x</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>5.x</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.3.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.x</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.4.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3.3.x</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>5.x</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.3.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.x</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.4.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3.3.x</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>5.x</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.3.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.x</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.4.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3.1.x</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>5.x (tested with 5.4.1)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.1.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.x (tested with 5.4.1)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.2.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3.1.x</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.3.x</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.1.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.3.x</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0.2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3.0.x</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.x</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.0.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.x</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.1.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.4.x</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.1.x</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.4.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.1.x</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.0.4.5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.4.x</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.x</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.4.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.x</p></td>
 </tr>
 </tbody>
 </table>
@@ -2398,46 +2477,10 @@ class Multiplication {
 <div class="sect3">
 <h4 id="the-mapper-attachment-plugin">3.6. The Mapper Attachment plugin</h4>
 <div class="paragraph">
-<p>The Elasticsearch plugin does not ship with Mapper Attachment plugin, so if you are using mode <code>local</code> and config <code>elasticSearch.plugin.mapperAttachment.enabled: true</code> then you need to add the following dependency in build.gradle</p>
-</div>
-<div class="listingblock">
-<div class="title">build.gradle</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">compile "org.elasticsearch.plugin:mapper-attachments:2.4.6"</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The latest version of Mapper Attachments plugin is not available in Maven</p>
-</div>
-</td>
-</tr>
-</table>
+<p>The Elasticsearch Mapper Attachment plugin is deprecated since ES version 5.0.0. Hence it is no longer supported in this plugin.</p>
 </div>
 <div class="paragraph">
-<p>In order to use the latest version, you need to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Download this plugin for offline install from <a href="https://artifacts.elastic.co/downloads/elasticsearch-plugins/mapper-attachments/mapper-attachments-5.6.9.zip" class="bare">https://artifacts.elastic.co/downloads/elasticsearch-plugins/mapper-attachments/mapper-attachments-5.6.9.zip</a> into <code>/libs/elasticsearch</code> folder.</p>
-</li>
-<li>
-<p>Now, include the downloaded lib into project dependencies as:</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">build.gradle</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">compile fileTree(dir: "libs/elasticsearch", include: '*.jar')</code></pre>
-</div>
+<p>In future versions it could be possible to support the new <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/current/ingest-attachment.html">Ingest Attachment Processor Plugin</a>.</p>
 </div>
 </div>
 </div>
@@ -2576,8 +2619,8 @@ The syntax is simple:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">index</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"no"</code>, <code>"not_analyzed"</code>, <code>"analyzed"</code>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">How or if the property is made into searchable element. One of <code>"no"</code>, <code>"not_analyzed"</code> or <code>"analyzed"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code>, <code>true</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The index option controls whether field values are indexed. It accepts <code>true</code> or <code>false</code> and defaults to <code>true</code>. Fields that are not indexed are not queryable.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">fielddata</p></td>
@@ -3503,6 +3546,96 @@ elasticSearchService.search('xyz', [ indices: Post, types: Post, from: 0, size: 
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="aggregation">6.9. Aggregation</h3>
+<div class="paragraph">
+<p>You can use AggregationBuilders while searching. The aggregations framework helps provide aggregated data based on a search query.
+It is based on simple building blocks called aggregations, that can be composed in order to build complex summaries of the data.</p>
+</div>
+<div class="paragraph">
+<p>You could use preconstructed AggregationBuilders or use the standard DSL based aggregations</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong></p>
+</div>
+<div class="paragraph">
+<p><em>Use of AggregationBuilders</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">// build your aggregation(s)
+def aggregations = []
+aggregations &lt;&lt; AggregationBuilders.filters('types',
+        new FiltersAggregator.KeyedFilter('jpg', QueryBuilders.matchQuery('type', 'jpg')),
+        new FiltersAggregator.KeyedFilter('png', QueryBuilders.matchQuery('type', 'png'))
+)
+aggregations &lt;&lt; AggregationBuilders.terms('names').field('name')
+aggregations &lt;&lt; AggregationBuilders.avg('avg_size').field('size')
+
+// Use it
+
+Photo.search('xyz', null as Closure, aggregations)
+
+// or
+
+elasticSearchService.search(
+                    'xyz',
+                    null as Closure,
+                    aggregations,
+                    [ indices: Photo, types: Photo ])</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Use of DSL</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">Photo.search('xyz', null as Closure, {
+            "types" {
+                filters {
+                    "filters" {
+                        "jpg" { match(type: 'jpg') }
+                        "png" { match(type: 'png') }
+                    }
+                }
+            }
+
+            "names" {
+                terms(field: 'name')
+            }
+
+            "avg_size" {
+                avg(field: 'size')
+            }
+        })
+
+// or
+
+elasticSearchService.search(
+                    'xyz',
+                    null as Closure,
+                    {
+                        "types" {
+                            filters {
+                                "filters" {
+                                    "jpg" { match(type: 'jpg') }
+                                    "png" { match(type: 'png') }
+                                }
+                            }
+                        }
+
+                        "names" {
+                            terms(field: 'name')
+                        }
+
+                        "avg_size" {
+                            avg(field: 'size')
+                        }
+                    },
+                    [ indices: Photo, types: Photo ])</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -3641,9 +3774,9 @@ elasticSearchAdminService.refresh() // Ensure that the 3 previous index
   static searchable = {
     except = 'password'
     lastname boost:20
-    firstname boost:15, index:'not_analyzed'
-    listOfThings index:'no'
-    someThings index:'no'
+    firstname boost:15, index:'true'
+    listOfThings index:'false'
+    someThings index:'false'
     tweets component:true
   }
 
@@ -3865,6 +3998,10 @@ and corresponding <code>User</code> indexed documents will be updated since we h
 <div class="sect2">
 <h3 id="parentChildExample">9.3. Parent/Child mapping</h3>
 <div class="paragraph">
+<p>Mapping types being removed, please see:
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/removal-of-types.html" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/removal-of-types.html</a></p>
+</div>
+<div class="paragraph">
 <p>A store with many departments</p>
 </div>
 <div class="listingblock">
@@ -3895,7 +4032,7 @@ class Department {
     }
 
     static searchable = {
-        store parent: true, component:true
+        store join: true, component:true
     }
 }</code></pre>
 </div>
@@ -3988,7 +4125,7 @@ class Department {
 <div id="footer">
 <div id="footer-text">
 Version 3.0.0.BUILD-SNAPSHOT<br>
-Last updated 2020-07-03 07:57:53 +00:00
+Last updated 2020-07-03 20:11:53 +00:00
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
