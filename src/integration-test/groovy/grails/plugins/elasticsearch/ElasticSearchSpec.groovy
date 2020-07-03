@@ -9,7 +9,7 @@ import org.elasticsearch.client.RequestOptions
 import org.elasticsearch.client.RestHighLevelClient
 import org.elasticsearch.client.indices.GetIndexRequest
 import org.elasticsearch.client.indices.GetIndexResponse
-import org.elasticsearch.cluster.metadata.MappingMetaData
+import org.elasticsearch.cluster.metadata.MappingMetadata
 import org.elasticsearch.common.collect.ImmutableOpenMap
 import org.elasticsearch.index.query.QueryBuilder
 import org.grails.datastore.gorm.GormEntity
@@ -122,7 +122,7 @@ trait ElasticSearchSpec {
         elasticSearchService.elasticSearchContextHolder.getMappingContextByType(clazz).domainClass
     }
 
-    MappingMetaData getFieldMappingMetaData(String indexName, String documentType) {
+    MappingMetadata getFieldMappingMetaData(String indexName, String documentType) {
         if (elasticSearchAdminService.aliasExists(indexName)) {
             indexName = elasticSearchAdminService.indexPointedBy(indexName)
         }
