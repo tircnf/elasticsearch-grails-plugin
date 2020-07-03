@@ -1,16 +1,5 @@
 == Elasticsearch Grails plugin image:https://travis-ci.org/puneetbehl/elasticsearch-grails-plugin.svg?branch=master["Build Status", link="https://travis-ci.org/puneetbehl/elasticsearch-grails-plugin"]
 
-An Elasticsearch plugin for Grails; This project is a fork based on the great work done by the guys at:
-
-* https://github.com/mstein/elasticsearch-grails-plugin
-* https://github.com/noamt/elasticsearch-grails-plugin
-
-=== Why would you want to fork the original Elasticsearch plugin?
-
-The original Elasticsearch plugin relies on *Hibernate-specific* GORM components, thus rendering it unusable if you back your Grails application by any other database.
-
-=== Documentation
-
 The plugin documentation can be found at https://puneetbehl.github.io/elasticsearch-grails-plugin/index.html
 
 For latest stable version of plugin documentation, https://puneetbehl.github.io/elasticsearch-grails-plugin/latest/index.html[Click Here]
@@ -125,6 +114,7 @@ YourKit, LLC is the creator of https://www.yourkit.com/java/profiler/[YourKit Ja
 and https://www.yourkit.com/.net/profiler/[YourKit .NET Profiler],
 innovative and intelligent tools for profiling Java and .NET applications.
 
+
 == License
 
 ----
@@ -143,8 +133,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ----
 
+==== NOTE
 
+This project is a fork based on the great work done by the guys at:
 
+* https://github.com/mstein/elasticsearch-grails-plugin
+* https://github.com/noamt/elasticsearch-grails-plugin
+
+==== Why would you want to fork the original Elasticsearch plugin?
+
+The original Elasticsearch plugin relies on *Hibernate-specific* GORM components, thus rendering it unusable if you back your Grails application by any other database.
 
 ==== Here, have a yak:
 ----
