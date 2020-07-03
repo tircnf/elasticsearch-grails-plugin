@@ -14,7 +14,6 @@ echo "pullrequest: $TRAVIS_PULL_REQUEST"
 echo "travis tag: $TRAVIS_TAG"
 
 EXIT_STATUS=0
-echo "Publishing archives for branch $TRAVIS_BRANCH"
 if [[ -n $TRAVIS_TAG ]] || [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
 
   echo "Publishing archives"
@@ -26,6 +25,12 @@ if [[ -n $TRAVIS_TAG ]] || [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST
   fi
 
   ./publish-docs.sh
+
+elif [[ $TRAVIS_PULL_REQUEST == 'false' && $TRAVIS_BRANCH =~ ^master|[234]\..\.x$ ]]; then
+    echo "Publishing archives for branch $TRAVIS_BRANCH"
+    ./gradlew publish --no-daemon --stacktrace || EXIT_STATUS=$?
+else
+  echo "Skip publishing"
 fi
 
 exit $EXIT_STATUS

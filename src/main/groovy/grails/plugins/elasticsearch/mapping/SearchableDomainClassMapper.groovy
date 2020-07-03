@@ -288,7 +288,7 @@ class SearchableDomainClassMapper extends GroovyObjectSupport {
         }
         if (arg instanceof Collection) {
             //noinspection unchecked
-            return new HashSet<String>(arg)
+            return new HashSet<String>(arg as Collection<String>)
         }
         throw new IllegalArgumentException("Unknown argument: $arg")
     }
