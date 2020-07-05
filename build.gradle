@@ -103,7 +103,7 @@ dependencies {
 
     profile "org.grails.profiles:web-plugin"
 
-    testRuntime 'com.spatial4j:spatial4j:0.4.1'
+    testRuntime 'com.spatial4j:spatial4j:0.5'
     testRuntime 'org.apache.tomcat:tomcat-jdbc'
 
     testCompile "org.grails:grails-gorm-testing-support"
