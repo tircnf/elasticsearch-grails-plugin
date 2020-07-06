@@ -97,7 +97,7 @@ dependencies {
     compile "org.elasticsearch:elasticsearch:${elasticsearchVersion}"
     compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-client', version: elasticsearchVersion
     compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: elasticsearchVersion
-    compile group: 'org.locationtech.spatial4j', name: 'spatial4j', version: '0.6'
+    compile group: 'org.locationtech.spatial4j', name: 'spatial4j', version: '0.7'
 
     console "org.grails:grails-console"
 
