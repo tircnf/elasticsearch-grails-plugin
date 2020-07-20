@@ -27,7 +27,8 @@ class DeepDomainClassMarshaller extends DefaultMarshaller {
                 if (propertyValue.class."$searchablePropertyName") {
                     // todo fixme - will throw exception when no searchable field.
                     marshallingContext.lastParentPropertyName = prop.name
-                    if (propertyMapping?.isGeoPoint()) {
+                    // Converters build a string value out of a class so we can just add it
+                    if (propertyMapping?.isGeoPoint() || propertyMapping.converter != null) {
                         marshallResult += [(prop.name): (marshallingContext.delegateMarshalling(propertyValue, propertyMapping.maxDepth))]
                     } else {
                         marshallResult += [(prop.name): ([id: propertyValue.ident(), 'class': propertyClassName] + marshallingContext.delegateMarshalling(propertyValue, propertyMapping.maxDepth))]
