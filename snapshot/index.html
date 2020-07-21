@@ -2622,8 +2622,9 @@ The syntax is simple:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">converter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Class</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Class</code> to use as a converter during the marshalling/un-marshalling process for that peculiar property. That class must extends the <code>PropertyEditorSupport</code> java class.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Class</code> or the name of a bean (<code>String</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Class</code> to use as a converter during the marshalling/un-marshalling process for that peculiar property. Supplying a spring bean name allows using a fully wired and configured converter defined in <code>resources.groovy</code>.
+ That class or bean must extend the <code>PropertyEditorSupport</code> java class.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">excludeFromAll</p></td>
@@ -4138,7 +4139,7 @@ class Department {
 <div id="footer">
 <div id="footer-text">
 Version 3.0.0.BUILD-SNAPSHOT<br>
-Last updated 2020-07-20 21:23:59 UTC
+Last updated 2020-07-21 22:13:13 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
