@@ -144,6 +144,10 @@ environments:
             client:
                 mode: transport
 ----
+[[INFO]]
+====
+For *Grails 4* and *elasticsearch plugin > 3.0.0* you need to configure the REST port 9200 instead of 9300. 
+====
 
 === Client mode
 
