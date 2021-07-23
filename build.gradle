@@ -19,7 +19,7 @@ buildscript {
 plugins {
     id "com.jfrog.bintray" version "1.8.5"
     id 'com.jfrog.artifactory' version '4.17.2'
-    id "de.undercouch.download" version "4.1.1"
+    id "de.undercouch.download" version "4.1.2"
 }
 
 version "3.0.0.BUILD-SNAPSHOT"
@@ -90,14 +90,12 @@ dependencies {
     compile "org.grails.plugins:hibernate5"
     compile "org.grails.plugins:cache"
     compile "org.hibernate:hibernate-ehcache"
-
     compile "org.apache.logging.log4j:log4j-api:2.14.1"
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
-
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
     compile "org.elasticsearch:elasticsearch:${elasticsearchVersion}"
     compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-client', version: elasticsearchVersion
     compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: elasticsearchVersion
-    compile group: 'org.locationtech.spatial4j', name: 'spatial4j', version: '0.7'
+    compile group: 'org.locationtech.spatial4j', name: 'spatial4j', version: '0.8'
 
     console "org.grails:grails-console"
 
