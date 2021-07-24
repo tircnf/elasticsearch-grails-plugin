@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        grailsVersion = project.grailsVersion
+        grailsVersion = 4.0.11-3
         gormVersion = project.gormVersion
         elasticsearchVersion = project.elasticsearchVersion
     }
