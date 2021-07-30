@@ -1,4 +1,7 @@
 language: groovy
+branches:
+  only:
+    - 2.5.x
 jdk:
 - openjdk8
 services:
