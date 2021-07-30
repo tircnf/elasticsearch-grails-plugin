@@ -1,40 +1,26 @@
 buildscript {
-    ext {
-        grailsVersion = project.grailsVersion
-        gormVersion = project.gormVersion
-        elasticsearchVersion = project.elasticsearchVersion
-    }
     repositories {
         mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
-        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+        classpath "org.grails:grails-gradle-plugin:$grailsGradlePluginVersion"
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.6.1'
         classpath 'org.ajoberstar:gradle-git:1.7.2'
         classpath "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
+        classpath "de.undercouch:gradle-download-task:4.1.1"
     }
 }
 
-plugins {
-    id "com.jfrog.bintray" version "1.8.5"
-    id 'com.jfrog.artifactory' version '4.17.2'
-    id "de.undercouch.download" version "4.1.1"
-}
-
-version "3.0.0.BUILD-SNAPSHOT"
+version project.projectVersion
 group "org.grails.plugins"
 
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: "org.grails.grails-plugin"
-apply plugin: "org.grails.grails-plugin-publish"
+apply plugin: "org.grails.internal.grails-plugin-publish"
 apply plugin: "org.grails.grails-gsp"
-apply plugin: 'maven-publish'
-
-ext {
-    elasticsearchVersion = project.elasticsearchVersion
-}
+apply plugin: "de.undercouch.download"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -151,7 +137,7 @@ apply from: "gradle/documentation.gradle"
 apply from: "gradle/publish.gradle"
 
 grailsPublish {
-    githubSlug = 'puneetbehl/elasticsearch-grails-plugin'
+    githubSlug = 'grails-plugins/elasticsearch-grails-plugin'
     license {
         name = 'Apache-2.0'
     }
