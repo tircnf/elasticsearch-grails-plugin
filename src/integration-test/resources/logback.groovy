@@ -22,3 +22,9 @@ if (Environment.isDevelopmentMode() && targetDir) {
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 
 }
+
+//logger("grails.plugins.elasticsearch", DEBUG, ['STDOUT'], false)
+//logger("org.codehaus.groovy.grails", ERROR, ['STDOUT'], false)
+//logger("org.springframework", ERROR, ['STDOUT'], false)
+//logger("org.hibernate", ERROR, ['STDOUT'], false)
+//logger("net.sf.ehcache.hibernate", ERROR, ['STDOUT'], false)
