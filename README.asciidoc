@@ -1,6 +1,6 @@
 == Elasticsearch Grails plugin image:https://travis-ci.org/puneetbehl/elasticsearch-grails-plugin.svg?branch=master["Build Status", link="https://travis-ci.org/puneetbehl/elasticsearch-grails-plugin"]
 
-https://github.com/grails-plugins/elasticsearch-grails-plugin/blob/master/src/docs/index.adoc[documentation about the plugin]
+https://grails-plugins.github.io/elasticsearch-grails-plugin/[documentation about the plugin]
 
 === How can I obtain the plugin?
 
