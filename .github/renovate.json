@@ -15,6 +15,12 @@
       "groupName": "groovy monorepo"
     },
     {
+      "matchPackagePatterns": [
+        "^org\\.elasticsearch"
+      ],
+      "groupName": "elasticsearch monorepo"
+    },
+    {
       "matchPackageNames": [
         "org.grails:grails-bom",
         "org.grails:grails-bootstrap",
