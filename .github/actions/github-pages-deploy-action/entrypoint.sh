@@ -79,7 +79,7 @@ else
   cd $DOC_FOLDER
 fi
 
-cp -r ../build/docs/index.html $DOC_FOLDER/index.html
+cp -r ../build/docs/index.html ./index.html
 
 # Builds the project if a build script is provided.
 echo "Running build scripts... $BUILD_SCRIPT" && \
