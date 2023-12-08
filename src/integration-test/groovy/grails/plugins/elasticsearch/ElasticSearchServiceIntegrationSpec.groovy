@@ -97,14 +97,17 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
     void 'Index and un-index a domain object'() {
         given:
         def product = save new Product(productName: 'myTestProduct')
+        index(product)
+        refreshIndex(Product)
 
-        when:
+        expect:
         search(Product, 'myTestProduct').total.value == 1
 
-        then:
+        when:
         unindex(product)
+        refreshIndex(Product)
 
-        and:
+        then:
         search(Product, 'myTestProduct').total.value == 0
     }
 
