@@ -138,21 +138,47 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
 
     void 'a json object value should be marshalled and de-marshalled correctly'() {
         given:
+
+        String origName = System.currentTimeMillis().toString()
         def product = save new Product(
-                productName: 'product with json value',
+                productName: origName,
                 json: new JSONObject("""{ "test": { "details": "blah" } }"""))
 
         index(product)
-        refreshIndices()
+        refreshIndex(Product)
 
         when:
-        def result = search(Product, product.productName)
+//        def result = search(Product, product.productName)
+        def result = search(Product) {
+            bool { must { term("json.test.details": 'wrong') } }
+        }
+
+        then:
+        result.total.value==0
+
+        when:
+        result = search(Product) {
+            bool { must { term("json.test.details": 'blah') } }
+        }
 
         then:
         result.total.value == 1
         List<Product> searchResults = result.searchResults
         searchResults[0].productName == product.productName
+        ((Product) searchResults[0]).json.test.details == "blah"
+
+        when: "verify JSONObjects serialize to the DB correctly."
+        clearSession()
+        Product check=Product.get(product.id)
+
+        then:
+        check.json == product.json
+
+        cleanup:
+        unindex(product)
+        refreshIndex(Product)
     }
+
 
     void 'should marshal the alias field and unmarshal correctly (ignore alias)'() {
         given:

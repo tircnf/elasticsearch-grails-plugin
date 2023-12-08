@@ -25,6 +25,7 @@ import grails.plugins.elasticsearch.mapping.DomainProperty
 import grails.plugins.elasticsearch.mapping.SearchableClassMapping
 import grails.plugins.elasticsearch.mapping.SearchableClassPropertyMapping
 import grails.web.databinding.DataBinder
+import org.grails.web.json.JSONObject
 
 import java.time.OffsetDateTime
 import java.time.OffsetTime
@@ -130,7 +131,7 @@ class DomainClassUnmarshaller implements DataBinder {
             String part = st.nextToken()
             try {
                 int index = Integer.parseInt(part)
-                currentProperty = DefaultGroovyMethods.getAt(DefaultGroovyMethods.asList((Collection) currentProperty), index)
+                currentProperty = DefaultGroovyMethods.getAt(DefaultGroovyMethods.asList((Iterable) currentProperty), index)
             } catch (NumberFormatException e) {
                 currentProperty = DefaultGroovyMethods.getAt(currentProperty, part)
             }
@@ -181,9 +182,11 @@ class DomainClassUnmarshaller implements DataBinder {
             throw new MappingException("Property ${domainClass.type.simpleName}.${propertyName} found in index, but is not defined as searchable.")
         }
 
-        if (scpm?.dynamic && null != propertyValue) {
+        if (scpm.grailsProperty.type == JSONObject && null != propertyValue) {
+            parseResult = propertyValue as JSONObject
+        } else if (scpm.dynamic && null != propertyValue) {
             parseResult = (propertyValue as JSON).toString()
-        } else if (null != scpm && propertyValue instanceof Map) {
+        } else if (propertyValue instanceof Map) {
 
             Map<String, Object> data = (Map<String, Object>) propertyValue
 
