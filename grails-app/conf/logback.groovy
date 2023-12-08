@@ -22,6 +22,7 @@ if (Environment.isDevelopmentMode() && targetDir) {
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 }
 
+//logger("org.apache.http.wire", DEBUG, ['STDOUT'], false)
 //logger("grails.plugins.elasticsearch", DEBUG, ['STDOUT'], false)
 //logger("org.codehaus.groovy.grails", ERROR, ['STDOUT'], false)
 //logger("org.springframework", ERROR, ['STDOUT'], false)

@@ -2,9 +2,8 @@ package grails.plugins.elasticsearch.mapping
 
 import grails.plugins.elasticsearch.ElasticSearchContextHolder
 import grails.plugins.elasticsearch.ElasticSearchSpec
+import grails.plugins.elasticsearch.EsContainerSpec
 import grails.testing.mixin.integration.Integration
-import org.springframework.beans.factory.annotation.Autowired
-import spock.lang.Specification
 import test.Building
 import test.Person
 import test.Product
@@ -13,10 +12,10 @@ import test.Product
  * Created by @marcos-carceles on 20/05/15.
  */
 @Integration
-class SearchableDomainClassMapperIntegrationSpec extends Specification implements ElasticSearchSpec {
+class SearchableDomainClassMapperIntegrationSpec extends EsContainerSpec implements ElasticSearchSpec {
 
-    @Autowired DomainReflectionService domainReflectionService
-    @Autowired ElasticSearchContextHolder elasticSearchContextHolder
+    DomainReflectionService domainReflectionService
+    ElasticSearchContextHolder elasticSearchContextHolder
 
     void setup() {
         resetElasticsearch()

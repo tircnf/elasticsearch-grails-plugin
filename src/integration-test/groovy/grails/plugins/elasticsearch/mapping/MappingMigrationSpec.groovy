@@ -1,17 +1,12 @@
 package grails.plugins.elasticsearch.mapping
 
 import grails.core.GrailsApplication
-import grails.plugins.elasticsearch.ElasticSearchAdminService
-import grails.plugins.elasticsearch.ElasticSearchBootStrapHelper
-import grails.plugins.elasticsearch.ElasticSearchContextHolder
-import grails.plugins.elasticsearch.ElasticSearchService
+import grails.gorm.transactions.Rollback
+import grails.plugins.elasticsearch.*
 import grails.plugins.elasticsearch.exception.MappingException
 import grails.testing.mixin.integration.Integration
-import grails.gorm.transactions.Rollback
-import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Ignore
 import spock.lang.See
-import spock.lang.Specification
 import test.mapping.migration.Catalog
 import test.mapping.migration.Item
 
@@ -20,14 +15,14 @@ import test.mapping.migration.Item
  */
 @Integration
 @Rollback
-class MappingMigrationSpec extends Specification {
+class MappingMigrationSpec extends EsContainerSpec {
 
-    @Autowired GrailsApplication grailsApplication
-    @Autowired SearchableClassMappingConfigurator searchableClassMappingConfigurator
-    @Autowired ElasticSearchContextHolder elasticSearchContextHolder
-    @Autowired ElasticSearchService elasticSearchService
-    @Autowired ElasticSearchAdminService elasticSearchAdminService
-    @Autowired ElasticSearchBootStrapHelper elasticSearchBootStrapHelper
+    GrailsApplication grailsApplication
+    SearchableClassMappingConfigurator searchableClassMappingConfigurator
+    ElasticSearchContextHolder elasticSearchContextHolder
+    ElasticSearchService elasticSearchService
+    ElasticSearchAdminService elasticSearchAdminService
+    ElasticSearchBootStrapHelper elasticSearchBootStrapHelper
 
     ElasticSearchAdminService getEs() {
         elasticSearchAdminService

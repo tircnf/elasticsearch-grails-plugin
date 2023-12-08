@@ -1,5 +1,6 @@
 package grails.plugins.elasticsearch
 
+
 import grails.core.GrailsApplication
 import grails.plugins.elasticsearch.mapping.DomainEntity
 import grails.plugins.elasticsearch.mapping.SearchableClassMappingConfigurator
@@ -10,31 +11,24 @@ import org.elasticsearch.client.RestHighLevelClient
 import org.elasticsearch.client.indices.GetIndexRequest
 import org.elasticsearch.client.indices.GetIndexResponse
 import org.elasticsearch.cluster.metadata.MappingMetadata
-import org.elasticsearch.common.collect.ImmutableOpenMap
 import org.elasticsearch.index.query.QueryBuilder
 import org.grails.datastore.gorm.GormEntity
 import org.hibernate.SessionFactory
-import org.springframework.beans.factory.annotation.Autowired
 
 trait ElasticSearchSpec {
 
-    @Autowired
     GrailsApplication grailsApplication
 
-    @Autowired
     SessionFactory sessionFactory
 
-    @Autowired
     ElasticSearchService elasticSearchService
 
-    @Autowired
     ElasticSearchAdminService elasticSearchAdminService
 
-    @Autowired
     ElasticSearchHelper elasticSearchHelper
 
-    @Autowired
     SearchableClassMappingConfigurator searchableClassMappingConfigurator
+
 
     void resetElasticsearch() {
         deleteIndices()

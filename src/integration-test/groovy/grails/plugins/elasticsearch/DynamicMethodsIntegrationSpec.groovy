@@ -5,16 +5,14 @@ import grails.testing.mixin.integration.Integration
 import org.elasticsearch.index.query.Operator
 import org.elasticsearch.index.query.QueryBuilder
 import org.elasticsearch.index.query.QueryBuilders
-import org.elasticsearch.search.aggregations.AggregationBuilder
 import org.elasticsearch.search.aggregations.AggregationBuilders
 import org.elasticsearch.search.aggregations.bucket.filter.FiltersAggregator
-import spock.lang.Specification
 import test.Photo
 
 
 @Integration
 @Rollback
-class DynamicMethodsIntegrationSpec extends Specification implements ElasticSearchSpec {
+class DynamicMethodsIntegrationSpec extends EsContainerSpec implements ElasticSearchSpec {
 
     def setup() {
         save new Photo(name: "Captain Kirk", type: "png", size: 100, url: "http://www.nicenicejpg.com/100")

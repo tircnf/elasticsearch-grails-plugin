@@ -1,5 +1,6 @@
 package grails.plugins.elasticsearch
 
+
 import grails.converters.JSON
 import grails.gorm.transactions.NotTransactional
 import grails.gorm.transactions.Rollback
@@ -18,7 +19,6 @@ import org.elasticsearch.search.sort.SortOrder
 import org.grails.web.json.JSONObject
 import org.hibernate.proxy.HibernateProxy
 import spock.lang.Issue
-import spock.lang.Specification
 import spock.lang.Unroll
 import test.*
 import test.custom.id.Toy
@@ -29,7 +29,7 @@ import java.time.*
 @Integration
 @Rollback
 @Slf4j
-class ElasticSearchServiceIntegrationSpec extends Specification implements ElasticSearchSpec {
+class ElasticSearchServiceIntegrationSpec extends EsContainerSpec implements ElasticSearchSpec {
 
     private static final List<Map> EXAMPLE_GEO_BUILDINGS = [
             [lat: 48.13, lon: 11.60, name: '81667'],

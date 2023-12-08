@@ -14,8 +14,8 @@ import test.transients.*
 @Integration
 class DomainReflectionSpec extends Specification implements ElasticSearchSpec {
 
-    @Autowired DomainReflectionService domainReflectionService
-    @Autowired MappingContext mappingContext
+    DomainReflectionService domainReflectionService
+    MappingContext mappingContext
 
     private static final Set<String> TEAM_PROPERTIES =
             ['id', 'version', 'name', 'strip', 'players', 'fans'] as Set

@@ -89,6 +89,8 @@ dependencies {
     testCompile 'com.googlecode.json-simple:json-simple:1.1.1'
 
     compile fileTree(dir: "libs/elasticsearch", include: '*.jar')
+
+    testCompile  "org.testcontainers:elasticsearch:1.19.3"
 }
 
 task cleanLibsDir(type: Delete) {

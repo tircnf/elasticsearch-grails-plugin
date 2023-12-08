@@ -4,6 +4,7 @@ import grails.core.GrailsApplication
 import grails.gorm.transactions.Rollback
 import grails.plugins.elasticsearch.ElasticSearchContextHolder
 import grails.plugins.elasticsearch.ElasticSearchSpec
+import grails.plugins.elasticsearch.EsContainerSpec
 import grails.plugins.elasticsearch.exception.MappingException
 import grails.testing.mixin.integration.Integration
 import org.apache.lucene.search.TotalHits
@@ -12,7 +13,6 @@ import org.elasticsearch.common.text.Text
 import org.elasticsearch.search.SearchHit
 import org.elasticsearch.search.SearchHits
 import org.slf4j.Logger
-import spock.lang.Specification
 import test.GeoPoint
 
 import java.lang.reflect.Field
@@ -21,7 +21,7 @@ import java.time.*
 
 @Integration
 @Rollback
-class DomainClassUnmarshallerIntegrationSpec extends Specification implements ElasticSearchSpec {
+class DomainClassUnmarshallerIntegrationSpec extends EsContainerSpec implements ElasticSearchSpec {
 
     ElasticSearchContextHolder elasticSearchContextHolder
     GrailsApplication grailsApplication

@@ -2,9 +2,8 @@ package grails.plugins.elasticsearch.mapping
 
 import grails.core.GrailsApplication
 import grails.plugins.elasticsearch.ElasticSearchContextHolder
+import grails.plugins.elasticsearch.EsContainerSpec
 import grails.testing.mixin.integration.Integration
-import org.springframework.beans.factory.annotation.Autowired
-import spock.lang.Specification
 import spock.lang.Unroll
 import test.Building
 import test.Person
@@ -17,11 +16,11 @@ import test.transients.Palette
  * Created by @marcos-carceles on 28/01/15.
  */
 @Integration
-class ElasticSearchMappingFactorySpec extends Specification {
+class ElasticSearchMappingFactorySpec extends EsContainerSpec {
 
-    @Autowired GrailsApplication grailsApplication
-    @Autowired SearchableClassMappingConfigurator searchableClassMappingConfigurator
-    @Autowired ElasticSearchContextHolder elasticSearchContextHolder
+    GrailsApplication grailsApplication
+    SearchableClassMappingConfigurator searchableClassMappingConfigurator
+    ElasticSearchContextHolder elasticSearchContextHolder
 
     void setup() {
         grailsApplication.config.elasticSearch.includeTransients = true

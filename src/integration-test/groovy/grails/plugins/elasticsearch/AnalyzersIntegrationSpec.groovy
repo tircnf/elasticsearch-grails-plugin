@@ -1,6 +1,5 @@
 package grails.plugins.elasticsearch
 
-import spock.lang.Specification
 
 import grails.testing.mixin.integration.Integration
 import grails.gorm.transactions.Rollback
@@ -13,7 +12,7 @@ import test.all.Post
  */
 @Integration
 @Rollback
-class AnalyzersIntegrationSpec extends Specification implements ElasticSearchSpec {
+class AnalyzersIntegrationSpec extends EsContainerSpec implements ElasticSearchSpec {
 
     def setup() {
         resetElasticsearch()

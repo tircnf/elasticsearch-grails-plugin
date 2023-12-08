@@ -2,17 +2,13 @@ package grails.plugins.elasticsearch
 
 import grails.testing.mixin.integration.Integration
 import grails.gorm.transactions.Rollback
-import org.springframework.beans.factory.annotation.Autowired
-import spock.lang.Specification
 import test.File
 
 @Integration
 @Rollback
-class AttachmentMappingIntegrationSpec extends Specification {
+class AttachmentMappingIntegrationSpec extends EsContainerSpec {
 
-    @Autowired
     ElasticSearchService elasticSearchService
-    @Autowired
     ElasticSearchAdminService elasticSearchAdminService
 
     void 'Index a File object'() {
