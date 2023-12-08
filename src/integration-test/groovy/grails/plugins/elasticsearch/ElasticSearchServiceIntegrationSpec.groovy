@@ -4,20 +4,19 @@ import grails.converters.JSON
 import grails.gorm.transactions.NotTransactional
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
+import groovy.util.logging.Slf4j
 import org.elasticsearch.action.get.GetRequest
 import org.elasticsearch.action.get.GetResponse
 import org.elasticsearch.client.RequestOptions
 import org.elasticsearch.common.unit.DistanceUnit
 import org.elasticsearch.index.query.QueryBuilder
 import org.elasticsearch.index.query.QueryBuilders
-import org.elasticsearch.join.query.JoinQueryBuilders
 import org.elasticsearch.search.aggregations.AggregationBuilders
 import org.elasticsearch.search.sort.FieldSortBuilder
 import org.elasticsearch.search.sort.SortBuilders
 import org.elasticsearch.search.sort.SortOrder
 import org.grails.web.json.JSONObject
 import org.hibernate.proxy.HibernateProxy
-import spock.lang.Ignore
 import spock.lang.Issue
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -29,9 +28,8 @@ import java.time.*
 
 @Integration
 @Rollback
+@Slf4j
 class ElasticSearchServiceIntegrationSpec extends Specification implements ElasticSearchSpec {
-
-    static Boolean isSetup = false
 
     private static final List<Map> EXAMPLE_GEO_BUILDINGS = [
             [lat: 48.13, lon: 11.60, name: '81667'],
@@ -41,33 +39,27 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
 
     /**
      * This test class doesn't delete any ElasticSearch indices, because that would also delete the mapping.
-     * Be aware of this when indexing new objects.
+     * Be aware of this when indexing new objects, and make sure to remove them in a cleanup block.
      */
+
     def setup() {
-        // This is workaround due to issue with Grails3 and springbboot, otherwise we could have added in setupSpec
-        if (!isSetup) {
-            isSetup = true
-            setupData()
+        log.debug "*** SETUP RUNNING"
+        ElasticSearchResult searchResult = elasticSearchService.search("")
+        if (searchResult.total.value) {
+            log.error "A previous test left data in the index"
+            searchResult.searchResults.each {
+                log.info "${it}  ${it.properties}"
+            }
+            assert searchResult.total.value == 0, "The previous test left data in the index"
         }
     }
 
-    private void setupData() {
-        save new Product(productName: 'horst', price: 3.95)
-        save new Product(productName: 'hobbit', price: 5.99)
-        save new Product(productName: 'best', price: 10.99)
-        save new Product(productName: 'high and supreme', price: 45.50)
 
-        EXAMPLE_GEO_BUILDINGS.each {
-            GeoPoint geoPoint = save new GeoPoint(lat: it.lat, lon: it.lon)
-            save new Building(name: "${it.name}", location: geoPoint)
-        }
-
-        /*
-        * TODO: Need to identify why test cases are not working after removing this.
-        * */
-        // elasticSearchService.index()
-        // refreshIndices()
+    void "startup logging"() {
+        expect: "grab all the stdout/logging of the system starting up"
+        true
     }
+
 
     void "test indexing hibernate proxy"() {
         Person abby = new Person(firstName: 'Abby', lastName: 'Reynolds').save(flush: true)
@@ -82,62 +74,83 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
 
         when: "index a proxy instance"
         elasticSearchService.index(spaceship)
-        refreshIndices()
-        ElasticSearchResult search = search(Spaceship, 'arc')
+
+        refreshIndex(Spaceship)
+
+        ElasticSearchResult searchResult = search(Spaceship, 'arc')
 
         then:
-        search.total.value == 1
+        searchResult.total.value == 1
 
-        def result = search.searchResults.first()
+        def result = searchResult.searchResults.first()
         result.name == 'Arc'
         result.captain.firstName == 'Abby'
         result.captain.lastName == 'Reynolds'
+
+        cleanup:
+        unindex(spaceship)
+        refreshIndex(Spaceship)
     }
 
+
     void 'Index and un-index a domain object'() {
-        given:
-        def product = save new Product(productName: 'myTestProduct')
+        given: "Product that is searchable by default"
+
+        String name = 'myTestProduct'
+
+        when:
+
+        def product = save new Product(productName: name)
         index(product)
         refreshIndex(Product)
 
-        expect:
-        search(Product, 'myTestProduct').total.value == 1
+        then:
+        search(Product, name).total.value == 1
 
-        when:
+        when: "I unindex the Product"
         unindex(product)
         refreshIndex(Product)
 
         then:
-        search(Product, 'myTestProduct').total.value == 0
+        search(Product, name).total.value == 0
     }
+
 
     void 'Indexing the same object multiple times updates the corresponding ES entry'() {
         given:
-        def product = save new Product(productName: 'myTestProduct')
+        String origProductName = 'myOtherTestProduct'
+        def product = save new Product(productName: origProductName)
 
         when:
         index(product)
-        refreshIndices()
+        refreshIndex(Product)
 
         then:
-        search(Product, 'myTestProduct').total.value == 1
+        search(Product, origProductName).total.value == 1
 
         when:
-        product.productName = 'newProductName'
+        String newProductName = "new name"
+
+        product.productName = newProductName
         save product
 
         index(product)
-        refreshIndices()
+        refreshIndex(Product)
 
         then:
-        search(Product, 'myTestProduct').total.value == 0
+        search(Product, origProductName).total.value == 0
 
         and:
-        def result = search(Product, product.productName)
+        def result = search(Product, newProductName)
         result.total.value == 1
         List<Product> searchResults = result.searchResults
         searchResults[0].productName == product.productName
+
+        cleanup:
+        unindex(product)
+        refreshIndex(Product)
     }
+
 
     void 'a json object value should be marshalled and de-marshalled correctly'() {
         given:
@@ -185,11 +198,12 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
 
     void 'should marshal the alias field and unmarshal correctly (ignore alias)'() {
         given:
+        String name = "WatchTower"
         def location = save new GeoPoint(lat: 53.00, lon: 10.00)
-        def building = save new Building(name: 'WatchTower', location: location)
+        def building = save new Building(name: name, location: location)
 
         index(building)
-        refreshIndices()
+        refreshIndex(Building)
 
         when:
         def result = search(Building, building.name)
@@ -198,15 +212,20 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         result.total.value == 1
         List<Building> searchResults = result.searchResults
         searchResults[0].name == building.name
+
+        cleanup:
+        unindex(building)
+        refreshIndex(Building)
     }
 
     void 'a date value should be marshalled and de-marshalled correctly'() {
         given:
+        String name = "Product with a date value"
         def date = new Date()
-        def product = save new Product(productName: 'product with date value', date: date)
+        def product = save new Product(productName: name, date: date)
 
         index(product)
-        refreshIndices()
+        refreshIndex(Product)
 
         when:
         def result = search(Product, product.productName)
@@ -216,17 +235,22 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         List<Product> searchResults = result.searchResults
         searchResults[0].productName == product.productName
         searchResults[0].date == product.date
+
+        cleanup:
+        unindex(product)
+        refreshIndex(Product)
     }
 
     void 'a temporal type value should be marshalled and de-marshalled correctly'() {
         given:
+        String name = "Object with time types"
         def zoneId = ZoneId.ofOffset('', ZoneOffset.ofHours(-4))
         def localDate = LocalDate.now()
         def localDateTime = LocalDateTime.now()
         def zonedDateTime = ZonedDateTime.now(zoneId)
         def offsetDateTime = OffsetDateTime.now(zoneId)
         def offsetTime = OffsetTime.now(zoneId)
-        def dates = save new Dates(name: 'Object with java.util.time types',
+        def dates = save new Dates(name: name,
                 localDate: localDate,
                 localDateTime: localDateTime,
                 zonedDateTime: zonedDateTime,
@@ -234,7 +258,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
                 offsetTime: offsetTime)
 
         index(dates)
-        refreshIndices()
+        refreshIndex(Dates)
 
         when:
         def result = search(Dates, dates.name)
@@ -249,18 +273,23 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         searchResults[0].offsetDateTime.toString().substring(0, 12) == dates.offsetDateTime.toString().substring(0, 12)
         searchResults[0].offsetTime.toString().substring(0, 8) == dates.offsetTime.toString().substring(0, 8)
         searchResults[0].zonedDateTime == dates.zonedDateTime
+
+        cleanup:
+        unindex(dates)
+        refreshIndex(Dates)
     }
 
     void 'a geo point location is marshalled and de-marshalled correctly'() {
         given:
+        String name = "EvileagueHQ"
         def location = save new GeoPoint(lat: 53.00, lon: 10.00)
-        def building = save new Building(name: 'EvileagueHQ', location: location)
+        def building = save new Building(name: name, location: location)
 
         index(building)
-        refreshIndices()
+        refreshIndex(Building)
 
         when:
-        def result = search(Building, 'EvileagueHQ')
+        def result = search(Building, name)
 
         then:
         result.total.value == 1
@@ -268,6 +297,10 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         def resultLocation = searchResults[0].location
         resultLocation.lat == location.lat
         resultLocation.lon == location.lon
+
+        cleanup:
+        unindex(building)
+        refreshIndex(Building)
     }
 
     void 'a geo point is mapped correctly'() {
@@ -276,11 +309,16 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         Building building = save new Building(location: location)
 
         index(building)
-        refreshIndices()
+        refreshIndex(Building)
 
         then:
         Map<String, Object> mapping = getFieldMappingMetaData('test.building', 'building').sourceAsMap
         mapping.properties.location.type == 'geo_point'
+
+        cleanup:
+        unindex(building)
+        refreshIndex(Building)
+
     }
 
     void 'search with geo distance filter'() {
@@ -289,7 +327,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         def building = save new Building(name: 'Test Product', location: geoPoint)
 
         elasticSearchService.index(building)
-        refreshIndices()
+        refreshIndex(Building)
 
         when: 'a geo distance filter search is performed'
         Map params = [indices: Building, types: Building]
@@ -305,20 +343,18 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         def result = elasticSearchService.search(params, query, filter)
 
         then: 'the building should be found'
-        1 == result.total.value
+        1L == result.total.value
         List<Building> searchResults = result.searchResults
         searchResults[0].id == building.id
+
+        cleanup:
+        unindex(building)
+        refreshIndex(Building)
     }
 
     void 'searching with filtered query'() {
         given: 'some products'
-        Product.list().each { it.delete() }
-        def wurmProduct = save new Product(productName: 'wurm', price: 2.00)
-        def hansProduct = save new Product(productName: 'hans', price: 0.5)
-        def fooProduct = save new Product(productName: 'foo', price: 5.0)
-
-        index(wurmProduct, hansProduct, fooProduct)
-        refreshIndices()
+        loadProducts()
 
         when: 'searching for a price'
         def result = elasticSearchService.
@@ -327,11 +363,47 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         then: "the result should be product 'wurm'"
         result.total.value == 1
         List<Product> searchResults = result.searchResults
-        searchResults[0].productName == wurmProduct.productName
+        searchResults[0].productName == 'wurm'
+
+        cleanup:
+        cleanupProducts()
     }
 
-    void 'searching with a FilterBuilder filter and a Closure query'() {
+    List<Product> productList
+
+    private void loadProducts() {
+        assert productList == null, "did loadProducts get called twice in the same test?"
+        productList = []
+        productList << save(new Product(productName: 'horst', price: 3.95))
+        productList << save(new Product(productName: 'hobbit', price: 5.99))
+        productList << save(new Product(productName: 'best', price: 10.99))
+        productList << save(new Product(productName: 'high and supreme', price: 45.50))
+        productList << save(new Product(productName: 'wurm', price: 2.00))
+        productList << save(new Product(productName: 'hans', price: 0.5))
+        productList << save(new Product(productName: 'foo', price: 5.0))
+
+        productList.each {
+            index(it)
+        }
+        refreshIndex(Product)
+    }
+
+    private void cleanupProducts() {
+        try {
+            productList.each {
+                unindex(it)
+            }
+            productList = null
+            refreshIndex(Product)
+        } catch (Exception e) {
+            log.error "Unexpected error during cleanup.  The index might still be modified", e
+        }
+    }
+
+    void 'searching with a FilterBuilder filter'() {
         when: 'searching for a price'
+        loadProducts()
+
         QueryBuilder filter = QueryBuilders.rangeQuery("price").gte(1.99).lte(2.3)
         def result = elasticSearchService.search(QueryBuilders.matchAllQuery(), filter)
 
@@ -339,23 +411,16 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         result.total.value == 1
         List<Product> searchResults = result.searchResults
         searchResults[0].productName == "wurm"
+
+        cleanup:
+        cleanupProducts()
     }
 
-    void 'searching with a FilterBuilder filter and a QueryBuilder query'() {
-        when: 'searching for a price'
-        QueryBuilder filter = QueryBuilders.rangeQuery("price").gte(1.99).lte(2.3)
-        def result = elasticSearchService.search(QueryBuilders.matchAllQuery(), filter)
 
-        then: "the result should be product 'wurm'"
-        result.total.value == 1
-        List<Product> searchResults = result.searchResults
-        searchResults[0].productName == "wurm"
-    }
 
     void 'searching with wildcards in query at first position'() {
         given:
-        setupData()
-        refreshIndices()
+        loadProducts()
 
         when: 'search with asterisk at first position'
         def result = search(Product, { wildcard(productName: '*st') })
@@ -364,12 +429,14 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         result.total.value == 2
         List<Product> searchResults = result.searchResults
         searchResults*.productName.containsAll('best', 'horst')
+
+        cleanup:
+        cleanupProducts()
     }
 
     void 'searching with wildcards in query at last position'() {
         given:
-        setupData()
-        refreshIndices()
+        loadProducts()
 
         when: 'search with asterisk at last position'
         Map params2 = [indices: Product, types: Product]
@@ -382,12 +449,14 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         result2.total.value == 2
         List<Product> searchResults2 = result2.searchResults
         searchResults2*.productName.containsAll('horst', 'hobbit')
+
+        cleanup:
+        cleanupProducts()
     }
 
     void 'searching with wildcards in query in between position'() {
         given:
-        setupData()
-        refreshIndices()
+        loadProducts()
 
         when: 'search with asterisk in between position'
         def result = search(Product) {
@@ -398,6 +467,9 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         result.total.value == 1
         List<Product> searchResults3 = result.searchResults
         searchResults3[0].productName == 'high and supreme'
+
+        cleanup:
+        cleanupProducts()
     }
 
     void 'searching for special characters in data pool'() {
@@ -405,7 +477,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         def product = save new Product(productName: 'ästhätik', price: 3.95)
 
         index(product)
-        refreshIndices()
+        refreshIndex(Product)
 
         when: "search for 'a umlaut' "
         def result = elasticSearchService.search({ match(productName: 'ästhätik') })
@@ -414,35 +486,23 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         result.total.value == 1
         List<Product> searchResults = result.searchResults
         searchResults[0].productName == product.productName
-    }
 
-    @Ignore('Ignored due to the fact that joined documents must be in the same shard. Elasticsearch plugin stores each domain object type in a separate index. So they could never be in the same shard if they are not of the same type.')
-    void 'searching for features of the parent element from the actual element'() {
-        given: 'parent and child elements'
-        def parentParentElement = save new Store(name: 'Eltern-Elternelement', owner: 'Horst')
-        def parentElement = save new Department(name: 'Elternelement', numberOfProducts: 4, store: parentParentElement)
-        def childElement = save new Product(productName: 'Kindelement', price: 5.00)
-
-        index(parentParentElement, parentElement, childElement)
-        refreshIndices()
-
-        when:
-        def result = elasticSearchService.search(
-                JoinQueryBuilders.hasParentQuery('store', QueryBuilders.matchQuery('owner', 'Horst'), false),
-                QueryBuilders.matchAllQuery(),
-                [indices: Department, types: Department])
-
-        then:
-        !result.searchResults.empty
+        cleanup:
+        unindex(product)
+        refreshIndex(Product)
     }
 
     void 'Paging and sorting through search results'() {
         given: 'a bunch of products'
+
+        List<Product> productList = []
+
         10.times {
             def product = save new Product(productName: "Produkt${it}", price: it)
             index(product)
+            productList << product
         }
-        refreshIndices()
+        refreshIndex(Product)
 
         when: 'a search is performed'
         def params = [from: 3, size: 2, indices: Product, types: Product, sort: 'productName']
@@ -455,18 +515,27 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         result.total.value == 10
         result.searchResults.size() == 2
         result.searchResults*.productName == ['Produkt3', 'Produkt4']
+
+        cleanup:
+        productList.each {
+            unindex it
+        }
+        refreshIndex(Product)
     }
 
     void 'Multiple sorting through search results'() {
         given: 'a bunch of products'
+
+        List<Product> productList = []
         def product
         2.times { int i ->
             2.times { int k ->
                 product = new Product(productName: "Yogurt$i", price: k).save(failOnError: true, flush: true)
                 elasticSearchService.index(product)
+                productList << product
             }
         }
-        refreshIndices()
+        refreshIndex(Product)
 
         when: 'a search is performed'
         def sort1 = new FieldSortBuilder('productName').order(SortOrder.ASC)
@@ -496,6 +565,12 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         result.searchResults.size() == 4
         result.searchResults*.productName == ['Yogurt1', 'Yogurt1', 'Yogurt0', 'Yogurt0']
         result.searchResults*.price == [0, 1, 0, 1]
+
+        cleanup:
+        productList.each {
+            unindex(it)
+        }
+        refreshIndex(Product)
     }
 
     void 'A search with Uppercase Characters should return appropriate results'() {
@@ -503,7 +578,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         def product = save new Product(productName: 'Großer Kasten', price: 0.85)
 
         index(product)
-        refreshIndices()
+        refreshIndex(Product)
 
         when: 'a search is performed'
         def result = search(Product) {
@@ -514,13 +589,37 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         result.total.value == 1
         result.searchResults.size() == 1
         result.searchResults*.productName == ['Großer Kasten']
+
+        cleanup:
+        unindex(product)
+        refreshIndex(Product)
+    }
+
+    private List<Building> buildingList
+
+    private void setupGeoData() {
+        assert buildingList == null
+        buildingList = []
+        EXAMPLE_GEO_BUILDINGS.each {
+            GeoPoint geoPoint = save new GeoPoint(lat: it.lat, lon: it.lon)
+            Building b = save new Building(name: "${it.name}", location: geoPoint)
+            buildingList << b
+            index(b)
+        }
+        refreshIndex(Building)
+    }
+
+    private void cleanupGeoData() {
+        buildingList.each {
+            unindex(it)
+        }
+        refreshIndex(Building)
     }
 
     @Unroll
     void 'a geo distance search finds geo points at varying distances'(String distance, List<String> postalCodesFound) {
         given:
-        setupData()
-        refreshIndices()
+        setupGeoData()
 
         when: 'a geo distance search is performed'
         Map params = [indices: Building, types: Building]
@@ -540,12 +639,15 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         (postalCodesFound.empty && searchResults.empty) ||
                 searchResults.each { it.name in postalCodesFound }
 
+        cleanup:
+        cleanupGeoData()
+
         where:
-        distance  | postalCodesFound
-        '1km'     | []
-        '5km'     | ['81667']
-        '20km'    | ['81667', '85774']
-        '1000km'  | ['81667', '85774', '87700']
+        distance | postalCodesFound
+        '1km'    | []
+        '5km'    | ['81667']
+        '20km'   | ['81667', '85774']
+        '1000km' | ['81667', '85774', '87700']
     }
 
     void 'A search with lowercase Characters should return appropriate results'() {
@@ -553,7 +655,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         def product = save new Product(productName: 'KLeiner kasten', price: 0.45)
 
         index(product)
-        refreshIndices()
+        refreshIndex(Product)
 
         when: 'a search is performed'
         def result = search(Product) {
@@ -564,14 +666,15 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         result.total.value == 1
         result.searchResults.size() == 1
         result.searchResults*.productName == ['KLeiner kasten']
+
+        cleanup:
+        unindex(product)
+        refreshIndex(Product)
     }
 
     void 'the distances are returned'() {
         given:
-        setupData()
-        refreshIndices()
-
-        // Building.list().each { it.delete() }
+        setupGeoData()
 
         when: 'a geo distance search is sorted by distance'
 
@@ -598,6 +701,9 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
 
         then: 'all geo points in the search radius are found'
         sortResults == [2.5401]
+
+        cleanup:
+        cleanupGeoData()
     }
 
     void 'Component as an inner object'() {
@@ -606,66 +712,81 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         def spaceship = save new Spaceship(name: 'Serenity', captain: mal)
 
         index(spaceship)
-        refreshIndices()
+        refreshIndex(Spaceship)
 
         when:
-        def search = search(Spaceship, 'serenity')
+        def searchResult = search(Spaceship, 'serenity')
 
         then:
-        search.total.value == 1
+        searchResult.total.value == 1
 
-        def result = search.searchResults.first()
+        def result = searchResult.searchResults.first()
         result.name == 'Serenity'
         result.captain.firstName == 'Malcolm'
         result.captain.lastName == 'Reynolds'
+
+        cleanup:
+        unindex(spaceship)
+        refreshIndex(Spaceship)
     }
 
+    //
     void 'Multi_filed creates untouched field'() {
         given:
         def mal = save new Person(firstName: 'J. T.', lastName: 'Esteban')
         def spaceship = save new Spaceship(name: 'USS Grissom', captain: mal)
 
         index(spaceship)
-        refreshIndices()
+        refreshIndex(Spaceship)
 
         when:
-        def search = search(Spaceship) {
+        def searchResult = search(Spaceship) {
             bool { must { term("name.untouched": 'USS Grissom') } }
         }
 
         then:
-        search.total.value == 1
+        searchResult.total.value == 1
 
-        def result = search.searchResults.first()
+        def result = searchResult.searchResults.first()
         result.name == 'USS Grissom'
         result.captain.firstName == 'J. T.'
         result.captain.lastName == 'Esteban'
+
+        cleanup:
+        unindex(spaceship)
+        refreshIndex(Spaceship)
     }
 
+    //
     void 'Fields creates creates child field'() {
         given:
         def mal = save new Person(firstName: 'Jason', lastName: 'Lambert')
         def spaceship = save new Spaceship(name: 'Intrepid', captain: mal)
 
         index(spaceship)
-        refreshIndices()
+        refreshIndex(Spaceship)
 
         when:
-        def search = search(Spaceship) {
+        def searchResult = search(Spaceship) {
             bool { must { term("captain.firstName.raw": 'Jason') } }
         }
 
         then:
-        search.total.value == 1
+        searchResult.total.value == 1
 
-        def result = search.searchResults.first()
+        def result = searchResult.searchResults.first()
         result.name == 'Intrepid'
         result.captain.firstName == 'Jason'
         result.captain.lastName == 'Lambert'
+
+        cleanup:
+        unindex(spaceship)
+        refreshIndex(Spaceship)
     }
 
+    //
     void 'dynamicly mapped JSON strings should be searchable'() {
-        given: 'A Spaceship with some cool canons'
+        given: 'A Spaceship with some cool cannons'
         def spaceship = new Spaceship(
                 name: 'Spaceball One', captain: new Person(firstName: 'Dark', lastName: 'Helmet').save())
         def data = [engines   : [[name: "Primary", maxSpeed: 'Ludicrous Speed'],
@@ -677,20 +798,25 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         spaceship.save(flush: true, validate: false)
 
         index(spaceship)
-        refreshIndices()
+        refreshIndex(Spaceship)
 
         when: 'a search is executed'
-        def search = search(Spaceship) {
+        def searchResult = search(Spaceship) {
             bool { must { term("shipData.engines.name": 'primary') } }
         }
 
         then: "the json data should be searchable as if it was an actual component of the Spaceship"
-        search.total.value == 1
-        def result = search.searchResults.first()
+        searchResult.total.value == 1
+        def result = searchResult.searchResults.first()
         def shipData = JSON.parse(result.shipData)
 
         result.name == 'Spaceball One'
         shipData.facilities.size() == 3
+
+
+        cleanup:
+        unindex(spaceship)
+        refreshIndex(Spaceship)
     }
 
     void 'Index a domain object with UUID-based id'() {
@@ -699,14 +825,18 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         def plane = save new Toy(name: 'Plane', color: "Yellow")
 
         index(car, plane)
-        refreshIndices()
+        refreshIndex(Toy)
 
         when:
-        def search = search(Toy, 'Yellow')
+        def searchResult = search(Toy, 'Yellow')
 
         then:
-        search.total.value == 1
-        search.searchResults[0].id == plane.id
+        searchResult.total.value == 1
+        searchResult.searchResults[0].id == plane.id
+
+        cleanup:
+        unindex(car, plane)
+        refreshIndex(Toy)
     }
 
     private void createBulkData() {
@@ -723,11 +853,16 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
 
         when:
         index(Spaceship)
-        refreshIndices()
+
+        refreshIndex(Spaceship)
 
         then:
         findFailures().size() == 0
         elasticSearchService.countHits('Ship\\-') == 1858
+
+        cleanup:
+        unindex(Spaceship)
+        refreshIndex(Spaceship)
     }
 
     void 'Use an aggregation'() {
@@ -736,17 +871,21 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         def xlJim = save new Product(productName: 'xl-jim', price: 5.99)
 
         index(jim, xlJim)
-        refreshIndices()
+        refreshIndex(Product)
 
         when:
-        def search = elasticSearchService.search(
+        def searchResult = elasticSearchService.search(
                 QueryBuilders.matchQuery('productName', 'jim'),
                 null as Closure,
                 AggregationBuilders.max('max_price').field('price'))
 
         then:
-        search.total.value == 2
-        search.aggregations.'max_price'.value == 5.99f
+        searchResult.total.value == 2
+        searchResult.aggregations.'max_price'.value == 5.99f
+
+        cleanup:
+        unindex(jim, xlJim)
+        refreshIndex(Product)
     }
 
     @NotTransactional
@@ -777,7 +916,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
 
         cleanup:
         Parent.withNewTransaction {
-            parent.delete()
+            parent.delete(flush: true)
         }
     }
 
@@ -788,7 +927,7 @@ class ElasticSearchServiceIntegrationSpec extends Specification implements Elast
         allObjects.each {
             elasticSearchHelper.withElasticSearch { client ->
                 GetRequest getRequest = new GetRequest(
-                        getIndexName(domainClass), getTypeName(domainClass), it.id.toString());
+                        getIndexName(domainClass), it.id.toString())
                 GetResponse result = client.get(getRequest, RequestOptions.DEFAULT)
                 if (!result.isExists()) {
                     failures << it

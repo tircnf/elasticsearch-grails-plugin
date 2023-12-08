@@ -25,7 +25,16 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
     }
 
     def cleanup() {
-        Photo.list().each { it.delete() }
+        try {
+            Photo.list().each {
+                it.delete()
+                unindex(it)
+            }
+            refreshIndex(Photo)
+        } catch (Exception e) {
+            println "Unable to cleanup test:   $e"
+        }
+
     }
 
     void "can search using Dynamic Methods"() {
@@ -91,7 +100,7 @@ class DynamicMethodsIntegrationSpec extends Specification implements ElasticSear
             }
 
             "names" {
-                  terms(field: 'name')
+                terms(field: 'name')
             }
 
             "avg_size" {

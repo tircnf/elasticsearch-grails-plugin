@@ -20,13 +20,9 @@ import test.transients.*
 @Rollback
 class TransientPropertiesIntegrationSpec extends Specification {
 
-    @Autowired
     GrailsApplication grailsApplication
-    @Autowired
     ElasticSearchService elasticSearchService
-    @Autowired
     ElasticSearchAdminService elasticSearchAdminService
-    @Autowired
     SearchableClassMappingConfigurator searchableClassMappingConfigurator
 
     void 'when includeTransients config is false only properties explicitly included in only are indexed and searchable'() {
@@ -58,6 +54,10 @@ class TransientPropertiesIntegrationSpec extends Specification {
         Anagram.search("elbaveilebnu").total.value == 0
         Calculation.search("24").total.value == 0
         Calculation.search("63").total.value == 0
+
+        cleanup:
+        elasticSearchService.unindex(toIndex)
+        elasticSearchAdminService.refresh()
     }
 
     void 'when includeTransients config is true all non excluded transient properties are indexed and searchable'() {
@@ -95,6 +95,8 @@ class TransientPropertiesIntegrationSpec extends Specification {
         calc.addition == 24
 
         cleanup:
+        elasticSearchService.unindex(toIndex)
+        elasticSearchAdminService.refresh()
         grailsApplication.config.elasticSearch.includeTransients = false
         searchableClassMappingConfigurator.configureAndInstallMappings()
     }
@@ -129,6 +131,7 @@ class TransientPropertiesIntegrationSpec extends Specification {
 
 		cleanup:
         elasticSearchService.unindex(toIndex)
+        elasticSearchAdminService.refresh(Team)
         
     }
 	
@@ -159,9 +162,8 @@ class TransientPropertiesIntegrationSpec extends Specification {
 
 		cleanup:
         elasticSearchService.unindex(toIndex)
-        
+        elasticSearchAdminService.refresh()
+
     }
 
-
-	
 }
