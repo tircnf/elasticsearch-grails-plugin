@@ -1,4 +1,4 @@
-9:51:34 PM: Executing 'dependencie'...
+10:58:56 PM: Executing 'dependencie'...
 
 
 > Configure project :
@@ -230,55 +230,59 @@ compile - Dependencies for source set 'main' (deprecated, use 'implementation' i
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -770,55 +774,58 @@ compileClasspath - Compile classpath for source set 'main'.
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    \--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -1416,55 +1423,59 @@ default - Configuration for default artifacts.
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 \--- org.locationtech.spatial4j:spatial4j:0.8
 
@@ -1649,55 +1660,59 @@ exploded
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -2209,55 +2224,59 @@ integrationTestCompile - Dependencies for source set 'integration test' (depreca
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -2815,55 +2834,58 @@ integrationTestCompileClasspath - Compile classpath for source set 'integration 
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    \--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -3428,55 +3450,59 @@ integrationTestRuntime - Runtime dependencies for source set 'integration test' 
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -4048,55 +4074,59 @@ integrationTestRuntimeClasspath - Runtime classpath of source set 'integration t
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -5101,55 +5131,59 @@ runtime - Runtime dependencies for source set 'main' (deprecated, use 'runtimeOn
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -5652,55 +5686,59 @@ runtimeClasspath - Runtime classpath of source set 'main'.
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -6212,55 +6250,59 @@ testCompile - Dependencies for source set 'test' (deprecated, use 'testImplement
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -6818,55 +6860,58 @@ testCompileClasspath - Compile classpath for source set 'test'.
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    \--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -7431,55 +7476,59 @@ testRuntime - Runtime dependencies for source set 'test' (deprecated, use 'testR
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -8051,55 +8100,59 @@ testRuntimeClasspath - Runtime classpath of source set 'test'.
 +--- org.apache.logging.log4j:log4j-api:2.18.0
 +--- org.apache.logging.log4j:log4j-core:2.18.0
 |    \--- org.apache.logging.log4j:log4j-api:2.18.0
-+--- org.elasticsearch:elasticsearch:7.8.0
-|    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    +--- org.elasticsearch:elasticsearch-secure-sm:7.8.0
-|    +--- org.elasticsearch:elasticsearch-x-content:7.8.0
-|    |    +--- org.elasticsearch:elasticsearch-core:7.8.0
-|    |    +--- org.yaml:snakeyaml:1.26 -> 1.25
-|    |    +--- com.fasterxml.jackson.core:jackson-core:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.10.4 -> 2.10.5
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4 -> 2.10.5
-|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.10.4 -> 2.10.5
-|    +--- org.elasticsearch:elasticsearch-geo:7.8.0
-|    +--- org.apache.lucene:lucene-core:8.5.1
-|    +--- org.apache.lucene:lucene-analyzers-common:8.5.1
-|    +--- org.apache.lucene:lucene-backward-codecs:8.5.1
-|    +--- org.apache.lucene:lucene-grouping:8.5.1
-|    +--- org.apache.lucene:lucene-highlighter:8.5.1
-|    +--- org.apache.lucene:lucene-join:8.5.1
-|    +--- org.apache.lucene:lucene-memory:8.5.1
-|    +--- org.apache.lucene:lucene-misc:8.5.1
-|    +--- org.apache.lucene:lucene-queries:8.5.1
-|    +--- org.apache.lucene:lucene-queryparser:8.5.1
-|    +--- org.apache.lucene:lucene-sandbox:8.5.1
-|    +--- org.apache.lucene:lucene-spatial-extras:8.5.1
-|    +--- org.apache.lucene:lucene-spatial3d:8.5.1
-|    +--- org.apache.lucene:lucene-suggest:8.5.1
-|    +--- org.elasticsearch:elasticsearch-cli:7.8.0
++--- org.elasticsearch:elasticsearch:7.17.15
+|    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.elasticsearch:elasticsearch-secure-sm:7.17.15
+|    +--- org.elasticsearch:elasticsearch-x-content:7.17.15
+|    |    +--- org.elasticsearch:elasticsearch-core:7.17.15
+|    |    +--- org.yaml:snakeyaml:1.33 -> 1.25
+|    |    +--- com.fasterxml.jackson.core:jackson-core:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.14.2 -> 2.10.5
+|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2 -> 2.10.5
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.14.2 -> 2.10.5
+|    +--- org.elasticsearch:elasticsearch-geo:7.17.15
+|    +--- org.elasticsearch:elasticsearch-lz4:7.17.15
+|    |    +--- org.lz4:lz4-java:1.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
+|    +--- org.apache.lucene:lucene-core:8.11.1
+|    +--- org.apache.lucene:lucene-analyzers-common:8.11.1
+|    +--- org.apache.lucene:lucene-backward-codecs:8.11.1
+|    +--- org.apache.lucene:lucene-grouping:8.11.1
+|    +--- org.apache.lucene:lucene-highlighter:8.11.1
+|    +--- org.apache.lucene:lucene-join:8.11.1
+|    +--- org.apache.lucene:lucene-memory:8.11.1
+|    +--- org.apache.lucene:lucene-misc:8.11.1
+|    +--- org.apache.lucene:lucene-queries:8.11.1
+|    +--- org.apache.lucene:lucene-queryparser:8.11.1
+|    +--- org.apache.lucene:lucene-sandbox:8.11.1
+|    +--- org.apache.lucene:lucene-spatial3d:8.11.1
+|    +--- org.apache.lucene:lucene-suggest:8.11.1
+|    +--- org.elasticsearch:elasticsearch-cli:7.17.15
 |    |    +--- net.sf.jopt-simple:jopt-simple:5.0.2
-|    |    \--- org.elasticsearch:elasticsearch-core:7.8.0
+|    |    \--- org.elasticsearch:elasticsearch-core:7.17.15
 |    +--- com.carrotsearch:hppc:0.8.1
-|    +--- joda-time:joda-time:2.10.4 -> 2.10.9
+|    +--- joda-time:joda-time:2.10.10 -> 2.10.9
 |    +--- com.tdunning:t-digest:3.2
 |    +--- org.hdrhistogram:HdrHistogram:2.1.9 -> 2.1.11
-|    +--- org.apache.logging.log4j:log4j-api:2.11.1 -> 2.18.0
-|    \--- org.elasticsearch:jna:4.5.1
-+--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0
+|    +--- org.apache.logging.log4j:log4j-api:2.17.1 -> 2.18.0
+|    +--- org.apache.logging.log4j:log4j-core:2.17.1 -> 2.18.0 (*)
+|    +--- net.java.dev.jna:jna:5.10.0 -> 4.5.2
+|    \--- org.elasticsearch:elasticsearch-plugin-classloader:7.17.15
++--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15
 |    +--- org.apache.httpcomponents:httpclient:4.5.10 -> 4.5.13
 |    +--- org.apache.httpcomponents:httpcore:4.4.12 -> 4.4.14
 |    +--- org.apache.httpcomponents:httpasyncclient:4.1.4
 |    +--- org.apache.httpcomponents:httpcore-nio:4.4.12 -> 4.4.14
 |    +--- commons-codec:commons-codec:1.11 -> 1.13
 |    \--- commons-logging:commons-logging:1.1.3
-+--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.8.0
-|    +--- org.elasticsearch:elasticsearch:7.8.0 (*)
-|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.8.0 (*)
-|    +--- org.elasticsearch.plugin:mapper-extras-client:7.8.0
-|    +--- org.elasticsearch.plugin:parent-join-client:7.8.0
-|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.8.0
-|    +--- org.elasticsearch.plugin:rank-eval-client:7.8.0
-|    \--- org.elasticsearch.plugin:lang-mustache-client:7.8.0
++--- org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15
+|    +--- org.elasticsearch:elasticsearch:7.17.15 (*)
+|    +--- org.elasticsearch.client:elasticsearch-rest-client:7.17.15 (*)
+|    +--- org.elasticsearch.plugin:mapper-extras-client:7.17.15
+|    +--- org.elasticsearch.plugin:parent-join-client:7.17.15
+|    +--- org.elasticsearch.plugin:aggs-matrix-stats-client:7.17.15
+|    +--- org.elasticsearch.plugin:rank-eval-client:7.17.15
+|    \--- org.elasticsearch.plugin:lang-mustache-client:7.17.15
 |         \--- com.github.spullara.mustache.java:compiler:0.9.6
 +--- org.locationtech.spatial4j:spatial4j:0.8
 +--- org.springframework.boot:spring-boot-starter-logging -> 2.2.13.RELEASE
@@ -8497,6 +8550,6 @@ No dependencies
 
 A web-based, searchable dependency report is available by adding the --scan option.
 
-BUILD SUCCESSFUL in 512ms
+BUILD SUCCESSFUL in 468ms
 1 actionable task: 1 executed
-9:51:34 PM: Execution finished 'dependencie'.
+10:58:56 PM: Execution finished 'dependencie'.

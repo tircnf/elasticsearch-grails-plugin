@@ -29,8 +29,8 @@ import org.elasticsearch.client.RequestOptions
 import org.elasticsearch.client.RestHighLevelClient
 import org.elasticsearch.common.unit.ByteSizeUnit
 import org.elasticsearch.common.unit.ByteSizeValue
-import org.elasticsearch.common.unit.TimeValue
-import org.elasticsearch.common.xcontent.XContentBuilder
+import org.elasticsearch.core.TimeValue
+import org.elasticsearch.xcontent.XContentBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.util.Assert
@@ -149,6 +149,7 @@ class IndexRequestQueue {
             return
         }
 
+        BulkProcessor bulkProcessor
         try {
             BulkProcessor.Listener listener = new BulkProcessor.Listener() {
                 int count = 0
@@ -181,7 +182,7 @@ class IndexRequestQueue {
                 elasticSearchClient.bulkAsync(request, RequestOptions.DEFAULT, bulkListener)
             } as BiConsumer<BulkRequest, ActionListener<BulkResponse>>)
 
-            BulkProcessor bulkProcessor = BulkProcessor.builder(bulkConsumer, listener)
+            bulkProcessor = BulkProcessor.builder(bulkConsumer, listener)
                     .setBulkActions(10000)
                     .setBulkSize(new ByteSizeValue(5, ByteSizeUnit.MB))
                     .setFlushInterval(TimeValue.timeValueSeconds(5))
@@ -225,7 +226,7 @@ class IndexRequestQueue {
 
             bulkProcessor.awaitClose(30L, TimeUnit.SECONDS)
         } catch (Exception e) {
-            throw new IndexException("Failed to index/delete ${bulkProcessor.numberOfActions()}", e)
+            throw new IndexException("Failed to index/delete ${bulkProcessor?.numberOfActions()}", e)
         }
     }
 

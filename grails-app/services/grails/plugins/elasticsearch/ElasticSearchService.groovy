@@ -27,14 +27,10 @@ import org.elasticsearch.action.search.SearchResponse
 import org.elasticsearch.client.RequestOptions
 import org.elasticsearch.client.RestHighLevelClient
 import org.elasticsearch.common.settings.Settings
-import org.elasticsearch.common.xcontent.DeprecationHandler
-import org.elasticsearch.common.xcontent.NamedXContentRegistry
-import org.elasticsearch.common.xcontent.XContent
-import org.elasticsearch.common.xcontent.XContentLocation
-import org.elasticsearch.common.xcontent.XContentParser
-import org.elasticsearch.common.xcontent.json.JsonXContent
+import org.elasticsearch.index.query.AbstractQueryBuilder
 import org.elasticsearch.index.query.Operator
 import org.elasticsearch.index.query.QueryBuilder
+import org.elasticsearch.index.query.QueryBuilders
 import org.elasticsearch.index.query.QueryStringQueryBuilder
 import org.elasticsearch.search.SearchHit
 import org.elasticsearch.search.SearchHits
@@ -47,6 +43,12 @@ import org.elasticsearch.search.builder.SearchSourceBuilder
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder
 import org.elasticsearch.search.sort.SortBuilder
 import org.elasticsearch.search.sort.SortOrder
+import org.elasticsearch.xcontent.DeprecationHandler
+import org.elasticsearch.xcontent.NamedXContentRegistry
+import org.elasticsearch.xcontent.XContent
+import org.elasticsearch.xcontent.XContentLocation
+import org.elasticsearch.xcontent.XContentParser
+import org.elasticsearch.xcontent.json.JsonXContent
 import org.grails.datastore.mapping.model.PersistentProperty
 
 
@@ -489,8 +491,13 @@ class ElasticSearchService implements GrailsApplicationAware {
 
     SearchSourceBuilder setQueryInSource(SearchSourceBuilder source, Closure query, Map params = [:]) {
         def queryBytes = new GXContentBuilder().buildAsBytes(query)
-        XContentParser parser = createParser(JsonXContent.jsonXContent, queryBytes)
-        def queryBuilder = parseInnerQueryBuilder(parser)
+
+//        XContentParser parser = createParser(JsonXContent.jsonXContent, queryBytes)
+//
+        // elasticsearch changed their boolean parser and this code doesn't work for boolean queries.
+        // change to just use the QueryBuilders helper to generate a builder from the json generated frmo the closure.
+//        def queryBuilder = parseInnerQueryBuilder(parser)
+        AbstractQueryBuilder queryBuilder = QueryBuilders.wrapperQuery(queryBytes)
 
         source.query(queryBuilder)
     }
