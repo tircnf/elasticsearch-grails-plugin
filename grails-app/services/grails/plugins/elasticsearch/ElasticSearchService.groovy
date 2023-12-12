@@ -47,6 +47,8 @@ import org.elasticsearch.search.builder.SearchSourceBuilder
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder
 import org.elasticsearch.search.sort.SortBuilder
 import org.elasticsearch.search.sort.SortOrder
+import org.grails.datastore.mapping.model.PersistentProperty
+
 
 import java.util.function.Supplier
 
@@ -307,70 +309,52 @@ class ElasticSearchService implements GrailsApplicationAware {
                     int rounds = Math.ceil(total / max) as int
                     log.debug "Maximum entries allowed in each bulk request is $max, so indexing is split to $rounds iterations"
 
-                    // Couldn't get to work with hibernate due to lost/closed hibernate session errors
-                    /*GParsPool.withPool(Runtime.getRuntime().availableProcessors()) {
-                        long offset = 0L
-                        (1..rounds).each { round ->
-                            try {
-                                log.debug("Bulk index iteration $round: fetching $max results starting from ${offset}")
-                                persistenceInterceptor.init()
-                                persistenceInterceptor.setReadOnly()
-
-                                //List<Class<?>> results = domainClass.listOrderById([offset: offset, max: max, order: "asc"])
-                                List<Class<?>> results = domainClass.listOrderById([offset: offset, max: max, readOnly: true, sort: 'id', order: "asc"])
-
-                                // set lastId for next run
-                                offset = round * max
-
-                                // build blocks of 100s and index them in parallel
-                                results.collate(100).eachParallel { List<Map> entries ->
-                                    entries.each { def entry ->
-                                        if (operationType == INDEX_REQUEST) {
-                                            indexRequestQueue.addIndexRequest(entry)
-                                            log.debug("Adding the document ${entry.id} to the index request queue")
-                                        } else if (operationType == DELETE_REQUEST) {
-                                            indexRequestQueue.addDeleteRequest(entry)
-                                            log.debug("Adding the document ${entry.id} to the delete request queue")
-                                        }
-                                        indexRequestQueue.executeRequests()
-
-                                        entry = null
-                                    }
-                                    entries = null
-                                }
-
-                                persistenceInterceptor.flush()
-                                persistenceInterceptor.clear()
-                                persistenceInterceptor.reconnect()
-                                results = null
-                                log.info "Request iteration $round out of $rounds finished"
-                            } finally {
-                                persistenceInterceptor.flush()
-                                persistenceInterceptor.clear()
-                                persistenceInterceptor.destroy()
-                            }
-                        }
-                    }*/
                     long offset = 0L
+
+                    // verify the type and name of the ID column.
+                    PersistentProperty identity = grailsApplication.mappingContext.getPersistentEntity(domainClass.name).identity
+                    String idName=identity.name
+                    Class<?> type = identity.type
+                    log.debug("class $domainClass.name has id $idName of type $type")
+
+                    def lastId
+                    // get a minimum starting value.
+                    if (type in Number) {
+                        lastId=0L
+                    } else if (type in String ) {
+                        lastId = ""
+                    } else if(type in UUID) {
+                        lastId = new UUID( [0] *16 as Byte[])
+                    } else {
+                        throw new RuntimeException("Unable to determine minimum value of $type for bulk index operation on ${domainClass.name} with property $idName")
+                    }
+
                     (1..rounds).each { round ->
                         try {
-                            log.debug("Bulk index iteration $round: fetching $max results starting from ${offset}")
+                            log.debug("Bulk index iteration $round: fetching $max results starting from lastId = $lastId, offset = ${offset}")
                             persistenceInterceptor.init()
                             persistenceInterceptor.setReadOnly()
 
-                            List<Class<?>> results = domainClass.listOrderById([offset: offset, max: max, readOnly: true, sort: 'id', order: "asc"])
+                            // using limit with offset will degrade on large datasets.
+//                            List<Class<?>> results = domainClass.listOrderById([offset: offset, max: max, readOnly: true, order: "asc"])
+
+                            List<Class<?>> results = domainClass.createCriteria().list(max:max)  {
+                                gt(idName,lastId)
+                                order(idName,"asc")
+                            }
+
 
                             // set lastId for next run
                             offset = round * max
+                            lastId = results.last().ident()
 
-                            // build blocks of 100s and index them in parallel
                             results.each { def entry ->
                                 if (operationType == INDEX_REQUEST) {
                                     indexRequestQueue.addIndexRequest(entry)
-                                    log.debug("Adding the document ${entry.id} to the index request queue")
+                                    log.debug("Adding the document ${entry.ident()} to the index request queue")
                                 } else if (operationType == DELETE_REQUEST) {
                                     indexRequestQueue.addDeleteRequest(entry)
-                                    log.debug("Adding the document ${entry.id} to the delete request queue")
+                                    log.debug("Adding the document ${entry.ident()} to the delete request queue")
                                 }
                             }
                             indexRequestQueue.executeRequests()
@@ -387,44 +371,6 @@ class ElasticSearchService implements GrailsApplicationAware {
                         }
                     }
                 }
-
-
-                /*if (operationType == INDEX_REQUEST) {
-                     log.debug("Indexing all instances of $domainClass")
-                 } else if (operationType == DELETE_REQUEST) {
-                     log.debug("Deleting all instances of $domainClass")
-                 }
-
-                 // The index is split to avoid out of memory exception
-                 def count = domainClass.count() ?: 0
-                 log.debug("Found $count instances of $domainClass")
-
-                 int nbRun = Math.ceil(count / max) as int
-
-                 log.debug("Maximum entries allowed in each bulk request is $max, so indexing is split to $nbRun iterations")
-
-                 for (int i = 0; i < nbRun; i++) {
-
-                     int offset = i * max
-
-                     log.debug("Bulk index iteration ${i + 1}: fetching $max results starting from ${offset}")
-                     long maxId = offset + max
-                     List<Class<?>> results = domainClass.findAllByIdBetween(offset, maxId, [sort: 'id', order: 'asc'])
-
-                     log.debug("Bulk index iteration ${i + 1}: found ${results.size()} results")
-                     results.each {
-                         if (operationType == INDEX_REQUEST) {
-                             indexRequestQueue.addIndexRequest(it)
-                             log.debug("Adding the document ${it.id} to the index request queue")
-                         } else if (operationType == DELETE_REQUEST) {
-                             indexRequestQueue.addDeleteRequest(it)
-                             log.debug("Adding the document ${it.id} to the delete request queue")
-                         }
-                     }
-                     indexRequestQueue.executeRequests()
-
-                     log.info("Request iteration ${i + 1} out of $nbRun finished")
-                 }*/
             } else {
                 log.debug("$domainClass is not a root searchable class and has been ignored.")
             }
@@ -557,7 +503,7 @@ class ElasticSearchService implements GrailsApplicationAware {
         def aggregationBytes = new GXContentBuilder().buildAsBytes(aggregation)
         XContentParser parser = createParser(JsonXContent.jsonXContent, aggregationBytes)
         if (parser.currentToken() == null) {
-            parser.nextToken();
+            parser.nextToken()
         }
         def aggregationBuilder = AggregatorFactories.parseAggregators(parser)
         aggregationBuilder.aggregatorFactories.each {
@@ -585,9 +531,9 @@ class ElasticSearchService implements GrailsApplicationAware {
     private static NamedXContentRegistry getXContentRegistry() {
         if (ContentRegistry == null) {
             searchModule = new SearchModule(Settings.EMPTY, false, Collections.emptyList())
-            ContentRegistry = searchModule.namedXContents;
+            ContentRegistry = searchModule.namedXContents
         }
-        return ContentRegistry;
+        return ContentRegistry
     }
 
     private static XContentParser createParser(XContent xContent, byte[] data) throws IOException {

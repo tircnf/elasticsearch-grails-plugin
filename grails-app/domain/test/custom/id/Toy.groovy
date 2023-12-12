@@ -1,14 +1,14 @@
 package test.custom.id
 
 class Toy {
-    UUID id
+    UUID toyId
     String name
     String color
 
     static searchable = true
 
     static mapping = {
-        id(generator: "uuid2", type: "uuid-char", length: 36)
+        id( name: 'toyId', generator: "uuid2", type: "uuid-char", length: 36)
     }
 
     static constraints = {

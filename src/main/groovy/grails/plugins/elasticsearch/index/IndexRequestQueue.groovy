@@ -108,8 +108,9 @@ class IndexRequestQueue {
     IndexEntityKey indexEntityKeyFromInstance(instance) {
         def clazz = instance.getClass()
         SearchableClassMapping scm = elasticSearchContextHolder.getMappingContextByType(clazz)
+
         Assert.notNull(scm, "Class $clazz is not a searchable domain class.")
-        def id = (InvokerHelper.invokeMethod(instance, 'getId', null)).toString()
+        def id = (InvokerHelper.invokeMethod(instance, "ident", null)).toString()
         new IndexEntityKey(id, clazz)
     }
 

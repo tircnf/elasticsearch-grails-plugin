@@ -18,6 +18,7 @@ import org.elasticsearch.search.sort.SortBuilders
 import org.elasticsearch.search.sort.SortOrder
 import org.grails.web.json.JSONObject
 import org.hibernate.proxy.HibernateProxy
+import spock.lang.IgnoreRest
 import spock.lang.Issue
 import spock.lang.Unroll
 import test.*
@@ -30,6 +31,8 @@ import java.time.*
 @Rollback
 @Slf4j
 class ElasticSearchServiceIntegrationSpec extends EsContainerSpec implements ElasticSearchSpec {
+
+    ElasticSearchContextHolder elasticSearchContextHolder
 
     private static final List<Map> EXAMPLE_GEO_BUILDINGS = [
             [lat: 48.13, lon: 11.60, name: '81667'],
@@ -55,6 +58,7 @@ class ElasticSearchServiceIntegrationSpec extends EsContainerSpec implements Ela
     }
 
 
+//    @IgnoreRest
     void "startup logging"() {
         expect: "grab all the stdout/logging of the system starting up"
         true
@@ -170,7 +174,7 @@ class ElasticSearchServiceIntegrationSpec extends EsContainerSpec implements Ela
         }
 
         then:
-        result.total.value==0
+        result.total.value == 0
 
         when:
         result = search(Product) {
@@ -185,7 +189,7 @@ class ElasticSearchServiceIntegrationSpec extends EsContainerSpec implements Ela
 
         when: "verify JSONObjects serialize to the DB correctly."
         clearSession()
-        Product check=Product.get(product.id)
+        Product check = Product.get(product.id)
 
         then:
         check.json == product.json
@@ -415,7 +419,6 @@ class ElasticSearchServiceIntegrationSpec extends EsContainerSpec implements Ela
         cleanup:
         cleanupProducts()
     }
-
 
 
     void 'searching with wildcards in query at first position'() {
@@ -819,7 +822,7 @@ class ElasticSearchServiceIntegrationSpec extends EsContainerSpec implements Ela
         refreshIndex(Spaceship)
     }
 
-    void 'Index a domain object with UUID-based id'() {
+    void 'Index a domain object with UUID-based id and custom identity name'() {
         given:
         def car = save new Toy(name: 'Car', color: "Red")
         def plane = save new Toy(name: 'Plane', color: "Yellow")
@@ -836,6 +839,30 @@ class ElasticSearchServiceIntegrationSpec extends EsContainerSpec implements Ela
 
         cleanup:
         unindex(car, plane)
+        refreshIndex(Toy)
+    }
+
+    void 'Bulk Index a domain object with UUID-based id and custom identity name'() {
+        given:
+        Long oldValue = elasticSearchContextHolder.config.maxBulkRequest
+        elasticSearchContextHolder.config.maxBulkRequest = 5
+        100.times {def car = save new Toy(name: 'Car', color: "Red")}
+        def plane = save new Toy(name: 'Plane', color: "Yellow")
+
+        index(Toy)
+        refreshIndex(Toy)
+
+        when:
+        def searchResult = search(Toy, 'Yellow')
+
+        then:
+        searchResult.total.value == 1
+        searchResult.searchResults[0].toyId == plane.toyId
+
+        cleanup:
+        println "Cleanup running"
+        elasticSearchContextHolder.config.maxBulkRequest = oldValue
+        unindex(Toy)
         refreshIndex(Toy)
     }
 
@@ -917,7 +944,42 @@ class ElasticSearchServiceIntegrationSpec extends EsContainerSpec implements Ela
         cleanup:
         Parent.withNewTransaction {
             parent.delete(flush: true)
+            unindex(parent)
         }
+        refreshIndex(Parent)
+    }
+
+
+    //
+    def "Verify Bulk Index works when count < maxId"() {
+        given: "some posts"
+        def oldBulkSize = elasticSearchContextHolder.config.maxBulkRequest
+        elasticSearchContextHolder.config.maxBulkRequest = 5
+        List<Product> products = []
+        (1..50).each {
+            products << save(new Product(productName: "product $it"))
+        }
+
+        and: "I delete some"
+        products[10..39].each {
+            it.delete(flush: true)
+        }
+
+        long productCount = Product.count()
+
+        when: ""
+
+        index(Product)
+        refreshIndex(Product)
+
+        then:
+        search("").getTotal().value == productCount
+
+        cleanup:
+        unindex(Product)
+        refreshIndex(Product)
+        elasticSearchContextHolder.config.maxBulkRequest = oldBulkSize
+
     }
 
     private def findFailures() {
